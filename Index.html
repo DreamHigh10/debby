@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accrue Academy | 2nd Year Accounting Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .topic-card:hover { transform: translateY(-4px); transition: all 0.3s ease; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .calc-table th, .calc-table td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; font-size: 0.875rem; }
+        .calc-table th { background-color: #f8fafc; font-weight: 700; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 glass border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showView('dashboard')">
+                <div class="bg-indigo-600 p-1.5 rounded-lg">
+                    <i data-lucide="graduation-cap" class="text-white w-6 h-6"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-slate-800">ACCRUE <span class="text-indigo-600">ACADEMY</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" onclick="showView('dashboard')" class="text-sm font-semibold hover:text-indigo-600">Dashboard</a>
+                <a href="#" onclick="showView('tutor')" class="text-sm font-semibold hover:text-indigo-600">AI Tutor</a>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-indigo-700 transition-all">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Dashboard View -->
+        <div id="view-dashboard" class="space-y-8 animate-in fade-in duration-500">
+            <header>
+                <h1 class="text-3xl font-extrabold text-slate-900">2nd Year Accounting Portal</h1>
+                <p class="text-slate-500 mt-1">Mastering Specialized Accounts with Numerical Demonstrations.</p>
+            </header>
+
+            <!-- Topic Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Topic Cards -->
+                <div onclick="openTopic('royalty')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-amber-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-amber-600"><i data-lucide="crown"></i></div>
+                    <h3 class="font-bold text-lg">Royalty Accounts</h3>
+                    <p class="text-sm text-slate-500 mt-2">Analysis tables, Minimum Rent, and Short-workings.</p>
+                </div>
+
+                <div onclick="openTopic('voyage')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-blue-600"><i data-lucide="ship"></i></div>
+                    <h3 class="font-bold text-lg">Account of Voyage</h3>
+                    <p class="text-sm text-slate-500 mt-2">Shipping industry Profit & Loss calculations.</p>
+                </div>
+
+                <div onclick="openTopic('investment')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-emerald-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-emerald-600"><i data-lucide="trending-up"></i></div>
+                    <h3 class="font-bold text-lg">Investment Accounts</h3>
+                    <p class="text-sm text-slate-500 mt-2">Cum-interest vs Ex-interest numerical examples.</p>
+                </div>
+
+                <div onclick="openTopic('partnership')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-purple-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-purple-600"><i data-lucide="users"></i></div>
+                    <h3 class="font-bold text-lg">Partnership Laws</h3>
+                    <p class="text-sm text-slate-500 mt-2">Dissolution & Garner vs Murray calculations.</p>
+                </div>
+
+                <div onclick="openTopic('contracts')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-rose-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-rose-600"><i data-lucide="file-check"></i></div>
+                    <h3 class="font-bold text-lg">Contract Accounting</h3>
+                    <p class="text-sm text-slate-500 mt-2">Notional Profit & Work Certified math.</p>
+                </div>
+
+                <div onclick="openTopic('goodwill')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-indigo-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-indigo-600"><i data-lucide="sparkles"></i></div>
+                    <h3 class="font-bold text-lg">Goodwill Valuation</h3>
+                    <p class="text-sm text-slate-500 mt-2">Super Profit & Capitalization formulas.</p>
+                </div>
+
+                <div onclick="openTopic('company')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-slate-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-slate-600"><i data-lucide="building-2"></i></div>
+                    <h3 class="font-bold text-lg">Company Accounts</h3>
+                    <p class="text-sm text-slate-500 mt-2">Issue of Shares & Forfeiture calculations.</p>
+                </div>
+
+                <div onclick="openTopic('inventory')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
+                    <div class="bg-orange-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-orange-600"><i data-lucide="package"></i></div>
+                    <h3 class="font-bold text-lg">Inventory Account</h3>
+                    <p class="text-sm text-slate-500 mt-2">FIFO & Weighted Average stock ledgers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lesson View -->
+        <div id="view-lesson" class="hidden animate-in slide-in-from-right duration-300 max-w-4xl mx-auto">
+            <button onclick="showView('dashboard')" class="flex items-center gap-2 text-slate-500 hover:text-indigo-600 mb-6 font-medium">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Dashboard
+            </button>
+            <div id="lesson-content" class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+
+        <!-- AI Tutor View -->
+        <div id="view-tutor" class="hidden h-[calc(100vh-160px)] animate-in zoom-in duration-300">
+            <div class="bg-white h-full rounded-3xl shadow-xl border border-slate-200 flex flex-col overflow-hidden">
+                <div class="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-indigo-600 p-2 rounded-lg"><i data-lucide="bot" class="text-white w-5 h-5"></i></div>
+                        <div>
+                            <h3 class="font-bold">Gemini Accounting AI</h3>
+                            <p class="text-xs text-slate-500">Ask about T-Accounts or Journal Entries</p>
+                        </div>
+                    </div>
+                    <button onclick="showView('dashboard')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x"></i></button>
+                </div>
+                <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+                    <div class="flex justify-start">
+                        <div class="bg-slate-100 p-4 rounded-2xl rounded-tl-none max-w-[80%] text-sm text-slate-700 leading-relaxed">
+                            Hello! I'm your Accounting Tutor. Stuck on a Royalty table or an Investment account adjustment? Just type your question below!
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-slate-50 border-t">
+                    <div class="flex gap-2">
+                        <input id="chat-input" type="text" placeholder="Explain the Garner vs Murray rule..." class="flex-1 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                        <button onclick="sendMessage()" class="bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 transition-colors">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const apiKey = ""; 
+
+        const TOPIC_DATA = {
+            royalty: {
+                title: "Royalty Accounts",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder - Replace with actual educational video
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-amber-700">Calculation: The Royalty Analysis Table</h2>
+                        <p>To solve any royalty problem, you must first prepare an Analysis Table to track short-workings and recoupment.</p>
+                        
+                        <div class="overflow-x-auto my-6">
+                            <table class="calc-table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Year</th><th>Output</th><th>Actual Royalty</th><th>Min. Rent</th><th>Short-workings</th><th>Recoupment</th><th>Payment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>1,000</td><td>$500</td><td>$1,000</td><td>$500</td><td>-</td><td>$1,000</td></tr>
+                                    <tr><td>2</td><td>2,500</td><td>$1,250</td><td>$1,000</td><td>-</td><td>$250</td><td>$1,000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="text-xl font-bold mt-8">Example Problem:</h3>
+                        <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-amber-500 italic text-sm">
+                            "A lease specifies a royalty of $0.50 per ton with a Minimum Rent of $1,000. Output in Year 1 was 1,000 tons. Calculate Short-workings."
+                        </div>
+                        <p class="mt-4"><strong>Solution:</strong> Actual Royalty = 1,000 tons × $0.50 = $500. Since $500 < $1,000 (Min Rent), Short-working = $500.</p>
+                    </div>
+                `
+            },
+            voyage: {
+                title: "Account of Voyage",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-blue-700">Voyage Profit Calculation</h2>
+                        <p>The goal is to calculate the Net Profit of a specific ship journey.</p>
+                        
+                        <div class="bg-slate-900 text-white p-6 rounded-2xl font-mono text-sm my-6">
+                            <div class="flex justify-between border-b border-slate-700 pb-2"><span>Total Freight Income</span><span>$50,000</span></div>
+                            <div class="flex justify-between mt-2"><span>(-) Bunker Costs</span><span>($12,000)</span></div>
+                            <div class="flex justify-between"><span>(-) Port Charges</span><span>($5,000)</span></div>
+                            <div class="flex justify-between"><span>(-) Address Commission (2%)</span><span>($1,000)</span></div>
+                            <div class="flex justify-between border-t border-slate-700 pt-2 font-bold text-emerald-400"><span>Voyage Profit</span><span>$32,000</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            investment: {
+                title: "Investment Accounts",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-emerald-700">Cum-Interest Calculation</h2>
+                        <p>When interest is included in the price, we must extract it to find the true Capital Cost.</p>
+                        
+                        <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 my-6">
+                            <h4 class="font-bold">Scenario:</h4>
+                            <p class="text-sm italic">Bought $10,000 12% Debentures at $105 Cum-interest on June 1st. Last interest paid March 31st.</p>
+                            
+                            <ul class="mt-4 space-y-2 text-sm">
+                                <li><strong>1. Accrued Interest:</strong> $10,000 × 12% × 2/12 (April, May) = <strong>$200</strong></li>
+                                <li><strong>2. Total Price Paid:</strong> 100 units × $105 = <strong>$10,500</strong></li>
+                                <li><strong>3. Capital Cost:</strong> $10,500 - $200 = <strong>$10,300</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            partnership: {
+                title: "Partnership Laws",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-purple-700">The Garner vs Murray Rule Math</h2>
+                        <p>When a partner is insolvent and cannot pay their deficiency, solvent partners must cover it.</p>
+                        
+                        <div class="bg-white border rounded-xl overflow-hidden my-6">
+                            <div class="bg-purple-600 text-white p-3 font-bold">Deficiency Allocation</div>
+                            <div class="p-4 space-y-3">
+                                <p class="text-sm">Partner C (Insolvent) Deficiency: <strong>$3,000</strong></p>
+                                <p class="text-sm">Solvent Partners A & B Capital Ratio: <strong>3:2</strong></p>
+                                <hr>
+                                <p class="text-sm"><strong>A's Share:</strong> $3,000 × (3/5) = $1,800</p>
+                                <p class="text-sm"><strong>B's Share:</strong> $3,000 × (2/5) = $1,200</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            contracts: {
+                title: "Contract Accounting",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-rose-700">Notional Profit Calculation</h2>
+                        <div class="p-6 bg-slate-50 border rounded-2xl font-mono text-sm space-y-2">
+                            <p>Value of Work Certified: $200,000</p>
+                            <p>Cost of Work Uncertified: $10,000</p>
+                            <p>(-) Total Cost to Date: ($150,000)</p>
+                            <hr class="border-slate-300">
+                            <p class="font-bold text-indigo-600">NOTIONAL PROFIT: $60,000</p>
+                        </div>
+                        <h4 class="font-bold mt-6">Profit taken to P&L:</h4>
+                        <p class="text-sm">If work is > 50% complete: 2/3 × Notional Profit × (Cash Received / Work Certified)</p>
+                    </div>
+                `
+            },
+            goodwill: {
+                title: "Accounting for Goodwill",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-indigo-700">Super Profit Method Example</h2>
+                        <div class="space-y-4">
+                            <div class="flex justify-between p-3 border-b"><span>Average Annual Profit</span><span>$40,000</span></div>
+                            <div class="flex justify-between p-3 border-b"><span>Normal Rate of Return</span><span>10%</span></div>
+                            <div class="flex justify-between p-3 border-b"><span>Capital Employed</span><span>$300,000</span></div>
+                            
+                            <div class="bg-indigo-50 p-4 rounded-xl mt-4 space-y-2">
+                                <p><strong>1. Normal Profit:</strong> $300,000 × 10% = $30,000</p>
+                                <p><strong>2. Super Profit:</strong> $40,000 - $30,000 = $10,000</p>
+                                <p><strong>3. Goodwill (3 years purchase):</strong> $10,000 × 3 = <strong>$30,000</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            company: {
+                title: "Company Accounts",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-slate-700">Share Forfeiture Entry</h2>
+                        <p>When a shareholder fails to pay calls, their shares are cancelled.</p>
+                        <div class="bg-slate-900 text-slate-100 p-6 rounded-xl font-mono text-xs">
+                            <p>Share Capital A/c (Called up) ...... Dr. $1,000</p>
+                            <p>&nbsp;&nbsp;To Share Forfeiture A/c (Paid amt) .. $600</p>
+                            <p>&nbsp;&nbsp;To Calls-in-Arrears A/c (Unpaid) .... $400</p>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 italic">*Calculation: 100 shares @ $10 each. Only $6 paid per share.</p>
+                    </div>
+                `
+            },
+            inventory: {
+                title: "Inventory Account",
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                content: `
+                    <div class="prose prose-slate max-w-none">
+                        <h2 class="text-2xl font-bold text-orange-700">FIFO Stock Ledger</h2>
+                        <div class="overflow-x-auto my-6">
+                            <table class="calc-table w-full">
+                                <thead>
+                                    <tr><th>Date</th><th>Receipts</th><th>Issues</th><th>Balance</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Jan 1</td><td>100 units @ $10</td><td>-</td><td>100 @ $10 ($1000)</td></tr>
+                                    <tr><td>Jan 5</td><td>200 units @ $12</td><td>-</td><td>100 @ $10, 200 @ $12</td></tr>
+                                    <tr><td>Jan 10</td><td>-</td><td>150 units</td><td>150 @ $12 ($1800)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-sm"><strong>Note:</strong> On Jan 10, the 150 units issued used the entire 100 units from Jan 1 first (FIFO), then 50 units from the Jan 5 lot.</p>
+                    </div>
+                `
+            }
+        };
+
+        function showView(viewId) {
+            document.querySelectorAll('[id^="view-"]').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function openTopic(topicId) {
+            const data = TOPIC_DATA[topicId];
+            if (!data) return;
+
+            document.getElementById('lesson-content').innerHTML = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                    <h1 class="text-4xl font-black text-slate-900">${data.title}</h1>
+                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest self-start">2nd Year Expert</span>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="play-circle" class="text-red-500"></i> Video Demonstration
+                    </h3>
+                    <div class="video-container shadow-2xl">
+                        <iframe src="${data.video}" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    ${data.content}
+                </div>
+
+                <div class="mt-12 p-8 bg-indigo-600 rounded-3xl text-white text-center">
+                    <i data-lucide="help-circle" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                    <h4 class="text-xl font-bold mb-2">Still having trouble with the math?</h4>
+                    <p class="text-indigo-100 text-sm mb-6">Our AI Tutor can solve your specific textbook problems instantly.</p>
+                    <button onclick="showView('tutor')" class="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-indigo-50 transition-all">
+                        Open AI Tutor
+                    </button>
+                </div>
+            `;
+            lucide.createIcons();
+            showView('lesson');
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const container = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            if (!text) return;
+
+            container.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm shadow-md">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            const loadingId = 'loading-' + Date.now();
+            container.innerHTML += `<div id="${loadingId}" class="flex justify-start"><div class="bg-slate-100 p-4 rounded-2xl animate-pulse text-xs text-slate-400">Tutor is calculating...</div></div>`;
+            container.scrollTop = container.scrollHeight;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ 
+                            parts: [{ text: `You are an expert accounting professor. A student is asking about: ${text}. 
+                            If it's a calculation, show the step-by-step math. If it's a journal entry, use T-account formatting. 
+                            Explain clearly for a 2nd-year university level.` }] 
+                        }],
+                        systemInstruction: { parts: [{ text: "Format calculations using Markdown tables. Be extremely precise with accounting terminology." }] }
+                    })
+                });
+
+                const data = await response.json();
+                const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble with my ledger. Please try again.";
+                
+                document.getElementById(loadingId).remove();
+                container.innerHTML += `
+                    <div class="flex justify-start">
+                        <div class="bg-slate-100 p-4 rounded-2xl rounded-tl-none max-w-[90%] text-sm whitespace-pre-wrap text-slate-800 leading-relaxed border border-slate-200">
+                            ${aiResponse}
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                container.innerHTML += `<div class="text-center text-rose-500 text-xs py-2 font-medium">Network Error. Check your connection.</div>`;
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>
