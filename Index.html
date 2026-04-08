@@ -1,463 +1,1152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accrue Academy | 2nd Year Accounting Masterclass</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
-        .topic-card:hover { transform: translateY(-4px); transition: all 0.3s ease; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .calc-table th, .calc-table td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; font-size: 0.875rem; }
-        .calc-table th { background-color: #f8fafc; font-weight: 700; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .option-btn:hover { background-color: #f1f5f9; border-color: #6366f1; }
-        .option-btn.correct { background-color: #ecfdf5; border-color: #10b981; color: #065f46; }
-        .option-btn.wrong { background-color: #fef2f2; border-color: #ef4444; color: #991b1b; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AccounTutor — 2nd Year Accounting Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#0f0e0c; --cream:#faf7f2; --gold:#c8973a; --gold-light:#e8c47a;
+  --teal:#1a6b6b; --teal-light:#2a9a9a; --rust:#b84a2e; --slate:#3a4a5a;
+  --muted:#8a8a8a; --border:#e0d9cf; --card:#ffffff; --sw:280px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+
+/* SIDEBAR */
+#sidebar{position:fixed;top:0;left:0;width:var(--sw);height:100vh;background:var(--ink);display:flex;flex-direction:column;z-index:100;overflow-y:auto;transition:transform .3s;}
+.sb-head{padding:24px 22px 18px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:var(--gold);}
+.sb-sub{font-size:.68rem;color:rgba(255,255,255,.35);margin-top:3px;letter-spacing:1.4px;text-transform:uppercase;}
+.prog-wrap{padding:14px 22px;border-bottom:1px solid rgba(255,255,255,.07);}
+.prog-lbl{font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+.prog-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--teal-light),var(--gold));border-radius:2px;transition:width .5s;}
+.prog-pct{font-size:.72rem;color:var(--gold);margin-top:4px;}
+.nav-sec{padding:10px 0;}
+.nav-sec-lbl{font-size:.63rem;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.22);padding:0 22px 7px;}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 22px;cursor:pointer;font-size:.8rem;color:rgba(255,255,255,.5);transition:all .2s;border-left:3px solid transparent;line-height:1.3;}
+.ni:hover{color:#fff;background:rgba(255,255,255,.04);}
+.ni.active{color:var(--gold);border-left-color:var(--gold);background:rgba(200,151,58,.08);}
+.ni .ico{font-size:.95rem;width:19px;text-align:center;flex-shrink:0;}
+.ni .dbadge{margin-left:auto;width:15px;height:15px;background:var(--teal);border-radius:50%;font-size:.58rem;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* MAIN */
+#main{margin-left:var(--sw);min-height:100vh;display:flex;flex-direction:column;}
+#topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 36px;display:flex;align-items:center;gap:14px;}
+.hamburger{display:none;cursor:pointer;font-size:1.2rem;}
+.bread{font-size:.78rem;color:var(--muted);}
+.bread span{color:var(--ink);font-weight:600;}
+.xp-pill{margin-left:auto;background:linear-gradient(135deg,var(--gold),#e8a030);color:#fff;font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px;}
+#content{flex:1;padding:44px 44px 80px;max-width:920px;}
+
+/* HOME */
+.home-hero{background:linear-gradient(135deg,var(--ink) 0%,var(--slate) 100%);border-radius:18px;padding:48px 44px;position:relative;overflow:hidden;margin-bottom:36px;}
+.home-hero::before{content:'₦';position:absolute;right:30px;top:10px;font-size:220px;color:rgba(255,255,255,.03);font-family:'Playfair Display',serif;font-weight:900;line-height:1;}
+.home-hero h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1.15;margin-bottom:12px;}
+.home-hero h1 em{color:var(--gold);font-style:normal;}
+.home-hero p{color:rgba(255,255,255,.6);font-size:.95rem;line-height:1.7;max-width:520px;}
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:14px;margin-bottom:36px;}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:all .25s;}
+.tc:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.09);border-color:var(--gold);}
+.tc .tci{font-size:1.8rem;margin-bottom:10px;}
+.tc h3{font-size:.92rem;font-weight:600;margin-bottom:5px;}
+.tc p{font-size:.75rem;color:var(--muted);line-height:1.5;}
+.tc .tc-bar{height:3px;background:var(--border);border-radius:2px;margin-top:12px;}
+.tc .tc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--gold));}
+
+/* LESSON */
+.lhd{margin-bottom:30px;}
+.ltag{display:inline-block;font-size:.68rem;letter-spacing:1.4px;text-transform:uppercase;background:var(--teal);color:#fff;padding:3px 9px;border-radius:4px;margin-bottom:12px;}
+.lhd h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.2;margin-bottom:10px;}
+.lhd .ldesc{font-size:.92rem;color:var(--slate);line-height:1.7;}
+.tab-strip{display:flex;gap:6px;border-bottom:2px solid var(--border);margin-bottom:28px;}
+.lt{padding:9px 15px;font-size:.8rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;color:var(--muted);transition:all .2s;font-weight:500;}
+.lt:hover{color:var(--ink);}
+.lt.active{color:var(--teal);border-bottom-color:var(--teal);}
+
+/* CONTENT BLOCKS */
+.sb{margin-bottom:32px;}
+.sb h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+.sb h3{font-size:.95rem;font-weight:600;margin:18px 0 7px;color:var(--teal);}
+.sb h4{font-size:.85rem;font-weight:600;margin:14px 0 5px;color:var(--slate);}
+.sb p{font-size:.87rem;line-height:1.8;color:#2a2a2a;margin-bottom:8px;}
+.sb ul,.sb ol{padding-left:18px;margin-bottom:9px;}
+.sb li{font-size:.87rem;line-height:1.7;color:#2a2a2a;margin-bottom:3px;}
+
+.callout{border-left:4px solid var(--gold);background:rgba(200,151,58,.07);padding:14px 18px;border-radius:0 9px 9px 0;margin:16px 0;}
+.callout.teal{border-left-color:var(--teal);background:rgba(26,107,107,.07);}
+.callout.rust{border-left-color:var(--rust);background:rgba(184,74,46,.07);}
+.callout.blue{border-left-color:#3a6ea5;background:rgba(58,110,165,.07);}
+.callout strong{display:block;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;color:var(--gold);}
+.callout.teal strong{color:var(--teal);}
+.callout.rust strong{color:var(--rust);}
+.callout.blue strong{color:#3a6ea5;}
+.callout p{font-size:.86rem;margin:0;}
+
+.fbox{background:var(--ink);color:var(--gold-light);font-family:'DM Mono',monospace;padding:16px 20px;border-radius:11px;font-size:.83rem;margin:14px 0;line-height:1.8;}
+.fbox .cm{color:rgba(255,255,255,.3);}
+.fbox .hl{color:#7dd3c8;}
+
+.acc-t{width:100%;border-collapse:collapse;margin:14px 0;font-size:.8rem;}
+.acc-t th{background:var(--ink);color:var(--gold);padding:9px 12px;text-align:left;font-weight:600;font-family:'DM Mono',monospace;letter-spacing:.3px;}
+.acc-t td{padding:8px 12px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;}
+.acc-t tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.acc-t .tot td{font-weight:700;border-top:2px solid var(--ink);background:rgba(200,151,58,.06)!important;}
+.dr{color:var(--teal);}.cr{color:var(--rust);}
+
+/* STEP-BY-STEP CALC */
+.calc-steps{counter-reset:step;margin:16px 0;}
+.step{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;}
+.step-num{flex-shrink:0;width:28px;height:28px;background:var(--teal);color:#fff;border-radius:50%;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.step-body{flex:1;}
+.step-body strong{display:block;font-size:.83rem;font-weight:600;margin-bottom:4px;}
+.step-body p{font-size:.82rem;color:#333;margin:0;line-height:1.6;}
+.step-result{background:rgba(26,107,107,.08);border:1px solid rgba(26,107,107,.2);border-radius:7px;padding:8px 12px;margin-top:6px;font-family:'DM Mono',monospace;font-size:.82rem;color:var(--teal);font-weight:600;}
+
+/* PRACTICE EXERCISE */
+.ex-box{background:#fff;border:2px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px;}
+.ex-box .ex-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.ex-box .ex-hd .ex-num{background:var(--gold);color:#fff;font-weight:700;font-size:.8rem;padding:4px 10px;border-radius:6px;}
+.ex-box .ex-hd h3{font-size:1rem;font-weight:700;color:var(--ink);}
+.ex-box .ex-data{background:var(--cream);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:.83rem;line-height:1.7;}
+.ex-box .ex-data strong{display:block;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+
+.inp-group{margin-bottom:12px;}
+.inp-group label{display:block;font-size:.78rem;font-weight:600;color:var(--slate);margin-bottom:5px;}
+.inp-group input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Mono',monospace;font-size:.85rem;background:#fff;transition:border .2s;outline:none;}
+.inp-group input:focus{border-color:var(--teal);}
+.inp-group input.correct{border-color:var(--teal);background:rgba(26,107,107,.06);}
+.inp-group input.wrong{border-color:var(--rust);background:rgba(184,74,46,.05);}
+.inp-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;}
+
+.btn-check{background:var(--teal);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s;margin-top:6px;}
+.btn-check:hover{background:var(--teal-light);}
+.btn-reveal{background:transparent;color:var(--muted);border:1.5px solid var(--border);padding:10px 18px;border-radius:8px;font-size:.78rem;cursor:pointer;transition:all .2s;margin-top:6px;margin-left:8px;}
+.btn-reveal:hover{border-color:var(--slate);color:var(--ink);}
+.ex-fb{margin-top:12px;padding:12px 16px;border-radius:9px;font-size:.83rem;display:none;line-height:1.7;}
+.ex-fb.ok{background:rgba(26,107,107,.09);color:var(--teal);border:1px solid rgba(26,107,107,.2);}
+.ex-fb.no{background:rgba(184,74,46,.07);color:var(--rust);border:1px solid rgba(184,74,46,.15);}
+.ex-fb.show{display:block;}
+.sol-panel{display:none;margin-top:14px;border-top:1px dashed var(--border);padding-top:14px;}
+.sol-panel.open{display:block;}
+
+/* QUIZ */
+.quiz-wrap{margin-top:8px;}
+.quiz-q{margin-bottom:24px;}
+.quiz-q p{font-size:.9rem;font-weight:600;margin-bottom:12px;line-height:1.5;}
+.qopt{display:flex;align-items:flex-start;gap:9px;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;margin-bottom:7px;cursor:pointer;transition:all .2s;font-size:.85rem;}
+.qopt:hover{border-color:var(--teal);background:rgba(26,107,107,.03);}
+.qopt.correct{border-color:var(--teal);background:rgba(26,107,107,.09);}
+.qopt.wrong{border-color:var(--rust);background:rgba(184,74,46,.07);}
+.qopt input{margin-top:2px;accent-color:var(--teal);}
+.q-fb{font-size:.8rem;margin-top:5px;padding:9px 13px;border-radius:7px;}
+.q-fb.ok{background:rgba(26,107,107,.09);color:var(--teal);}
+.q-fb.no{background:rgba(184,74,46,.07);color:var(--rust);}
+.btn-sub{background:var(--ink);color:var(--gold);border:none;padding:11px 26px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s;margin-top:6px;}
+.btn-sub:hover{background:var(--slate);}
+.btn-next{display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:#fff;border:none;padding:12px 26px;border-radius:9px;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s;margin-top:16px;}
+.btn-next:hover{background:var(--teal-light);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.page-enter{animation:fadeUp .35s ease both;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  :root{--sw:0px;}
+  #sidebar{transform:translateX(-280px);width:280px;}
+  #sidebar.open{transform:translateX(0);}
+  #main{margin-left:0;}
+  #content{padding:20px 16px 60px;}
+  #topbar{padding:11px 16px;}
+  .hamburger{display:block;}
+  .home-hero{padding:28px 20px;}
+  .home-hero h1{font-size:1.7rem;}
+  .topic-grid{grid-template-columns:1fr 1fr;}
+  .inp-row{grid-template-columns:1fr;}
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 glass border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="showView('dashboard')">
-                <div class="bg-indigo-600 p-1.5 rounded-lg">
-                    <i data-lucide="graduation-cap" class="text-white w-6 h-6"></i>
-                </div>
-                <span class="text-xl font-bold tracking-tight text-slate-800">ACCRUE <span class="text-indigo-600">ACADEMY</span></span>
-            </div>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#" onclick="showView('dashboard')" class="text-sm font-semibold hover:text-indigo-600">Dashboard</a>
-                <a href="#" onclick="showView('tutor')" class="text-sm font-semibold hover:text-indigo-600">AI Tutor</a>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-indigo-700 transition-all">Sign Out</button>
-            </div>
-        </div>
-    </nav>
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo">AccounTutor</div>
+    <div class="sb-sub">2nd Year Accounting</div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-lbl">Course Progress</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-pct" id="progPct">0% Complete</div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-sec-lbl">Overview</div>
+    <div class="ni active" onclick="show('home')" id="nav-home"><span class="ico">🏠</span> Dashboard</div>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-sec-lbl">Topics</div>
+    <div class="ni" onclick="show('royalty')" id="nav-royalty"><span class="ico">👑</span> Royalty Accounts</div>
+    <div class="ni" onclick="show('voyage')" id="nav-voyage"><span class="ico">⚓</span> Account of Voyage</div>
+    <div class="ni" onclick="show('investment')" id="nav-investment"><span class="ico">📈</span> Investment Accounts</div>
+    <div class="ni" onclick="show('partnership')" id="nav-partnership"><span class="ico">🤝</span> Partnership Accounts</div>
+    <div class="ni" onclick="show('contracts')" id="nav-contracts"><span class="ico">📋</span> Contract Accounts</div>
+    <div class="ni" onclick="show('goodwill')" id="nav-goodwill"><span class="ico">✨</span> Account for Goodwill</div>
+    <div class="ni" onclick="show('company')" id="nav-company"><span class="ico">🏢</span> Company Accounts</div>
+    <div class="ni" onclick="show('inventory')" id="nav-inventory"><span class="ico">📦</span> Inventory Accounts</div>
+  </div>
+</nav>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- Dashboard View -->
-        <div id="view-dashboard" class="space-y-8 animate-in fade-in duration-500">
-            <header>
-                <h1 class="text-3xl font-extrabold text-slate-900">2nd Year Accounting Portal</h1>
-                <p class="text-slate-500 mt-1">Mastering Specialized Accounts with Numerical Demonstrations & Practice.</p>
-            </header>
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <span class="hamburger" onclick="toggleSB()">☰</span>
+    <div class="bread" id="bread">Dashboard</div>
+    <div class="xp-pill" id="xpBadge">⭐ 0 XP</div>
+  </div>
+  <div id="content"></div>
+</div>
 
-            <!-- Topic Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Topic Cards -->
-                <div onclick="openTopic('royalty')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-amber-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-amber-600"><i data-lucide="crown"></i></div>
-                    <h3 class="font-bold text-lg">Royalty Accounts</h3>
-                    <p class="text-sm text-slate-500 mt-2">Analysis tables, Minimum Rent, and Short-workings.</p>
-                </div>
+<script>
+/* ================================================================
+   STATE
+   ================================================================ */
+const TOPICS = ['royalty','voyage','investment','partnership','contracts','goodwill','company','inventory'];
+const S = {
+  page:'home',
+  done: JSON.parse(localStorage.getItem('ac_done')||'{}'),
+  xp:   parseInt(localStorage.getItem('ac_xp')||'0')
+};
+function save(){ localStorage.setItem('ac_done',JSON.stringify(S.done)); localStorage.setItem('ac_xp',S.xp); }
+function markDone(t){ if(!S.done[t]){ S.done[t]=true; S.xp+=100; save(); updateProg(); addBadge(t); } }
+function addBadge(t){ const el=document.getElementById('nav-'+t); if(el&&!el.querySelector('.dbadge')){ const b=document.createElement('span'); b.className='dbadge'; b.textContent='✓'; el.appendChild(b); } }
+function updateProg(){
+  const d=TOPICS.filter(t=>S.done[t]).length;
+  const p=Math.round(d/TOPICS.length*100);
+  document.getElementById('progFill').style.width=p+'%';
+  document.getElementById('progPct').textContent=p+'% Complete';
+  document.getElementById('xpBadge').textContent='⭐ '+S.xp+' XP';
+}
 
-                <div onclick="openTopic('voyage')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-blue-600"><i data-lucide="ship"></i></div>
-                    <h3 class="font-bold text-lg">Account of Voyage</h3>
-                    <p class="text-sm text-slate-500 mt-2">Shipping industry Profit & Loss calculations.</p>
-                </div>
+/* ================================================================
+   ROUTING
+   ================================================================ */
+const LABELS={home:'Dashboard',royalty:'Royalty Accounts',voyage:'Account of Voyage',investment:'Investment Accounts',partnership:'Partnership Accounts',contracts:'Contract Accounts',goodwill:'Account for Goodwill',company:'Company Accounts',inventory:'Inventory Accounts'};
+function show(p){
+  S.page=p;
+  document.querySelectorAll('.ni').forEach(el=>el.classList.remove('active'));
+  const nav=document.getElementById('nav-'+p); if(nav) nav.classList.add('active');
+  document.getElementById('bread').innerHTML = p==='home'?'Dashboard':`Topics → <span>${LABELS[p]}</span>`;
+  const c=document.getElementById('content');
+  c.innerHTML=PAGES[p]();
+  c.className='page-enter';
+  if(window.innerWidth<768) document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo(0,0);
+}
+function toggleSB(){ document.getElementById('sidebar').classList.toggle('open'); }
 
-                <div onclick="openTopic('investment')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-emerald-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-emerald-600"><i data-lucide="trending-up"></i></div>
-                    <h3 class="font-bold text-lg">Investment Accounts</h3>
-                    <p class="text-sm text-slate-500 mt-2">Cum-interest vs Ex-interest numerical examples.</p>
-                </div>
+/* ================================================================
+   TAB SYSTEM
+   ================================================================ */
+function tab(t){
+  document.querySelectorAll('.lt').forEach(el=>el.classList.toggle('active',el.dataset.t===t));
+  document.querySelectorAll('[data-panel]').forEach(el=>el.style.display=el.dataset.panel===t?'block':'none');
+}
 
-                <div onclick="openTopic('partnership')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-purple-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-purple-600"><i data-lucide="users"></i></div>
-                    <h3 class="font-bold text-lg">Partnership Laws</h3>
-                    <p class="text-sm text-slate-500 mt-2">Dissolution & Garner vs Murray calculations.</p>
-                </div>
+/* ================================================================
+   PRACTICE EXERCISE ENGINE
+   ================================================================ */
+function checkEx(id, answers, tol){
+  tol = tol||0.5;
+  const inputs = document.querySelectorAll(`#ex-${id} input`);
+  let allOk=true;
+  inputs.forEach(inp=>{
+    const key=inp.dataset.key;
+    const expected=answers[key];
+    if(expected===undefined) return;
+    const val=parseFloat(inp.value.replace(/,/g,''));
+    const ok=Math.abs(val-expected)<=tol;
+    inp.classList.toggle('correct',ok);
+    inp.classList.toggle('wrong',!ok);
+    if(!ok) allOk=false;
+  });
+  const fb=document.getElementById(`fb-${id}`);
+  fb.className='ex-fb show '+(allOk?'ok':'no');
+  fb.innerHTML=allOk
+    ? '✅ <strong>Excellent!</strong> All answers are correct. +20 XP earned!'
+    : '❌ Some answers need review. Check highlighted fields or click "Show Solution".';
+  if(allOk){ S.xp+=20; save(); updateProg(); }
+}
+function toggleSol(id){
+  const p=document.getElementById(`sol-${id}`);
+  p.classList.toggle('open');
+  const btn=document.getElementById(`sbtn-${id}`);
+  btn.textContent=p.classList.contains('open')?'Hide Solution':'Show Solution';
+}
 
-                <div onclick="openTopic('contracts')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-rose-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-rose-600"><i data-lucide="file-check"></i></div>
-                    <h3 class="font-bold text-lg">Contract Accounting</h3>
-                    <p class="text-sm text-slate-500 mt-2">Notional Profit & Work Certified math.</p>
-                </div>
+/* ================================================================
+   QUIZ ENGINE
+   ================================================================ */
+const QUIZZES = {
+  royalty:[
+    {q:"Short-working occurs when:",opts:["Actual royalty > Minimum rent","Actual royalty < Minimum rent","Output equals zero","None of the above"],a:1,e:"Short-working = Minimum Rent − Actual Royalty. It occurs when actual earned royalty is less than the guaranteed minimum."},
+    {q:"Unrecouped short-working at the end of the recoupment period is:",opts:["Carried forward indefinitely","Written off to Profit & Loss Account","Deducted from the lessor's income","Added to minimum rent"],a:1,e:"Short-working not recovered within the allowed period is a loss — debited to P&L Account."},
+    {q:"In the lessor's books, royalty income is credited to:",opts:["Short-working Account","Royalty Receivable Account","Lessee's Account","Capital Account"],a:1,e:"Royalty income is credited to the Royalty Receivable (Income) Account in the lessor's books."},
+    {q:"Recoupment of short-working in a lessee's books is recorded as:",opts:["Dr Royalty A/c Cr Short-working A/c","Dr Short-working A/c Cr Landlord A/c","Dr Landlord A/c Cr Short-working A/c","Dr P&L A/c Cr Short-working A/c"],a:2,e:"Recoupment: Debit Landlord/Lessor A/c (reducing amount paid) and Credit Short-working A/c (clearing the asset)."},
+    {q:"The minimum rent clause in a royalty agreement primarily protects:",opts:["The lessee","The government","The lessor/landlord","Both parties equally"],a:2,e:"Minimum rent (dead rent) guarantees the lessor a minimum income regardless of the lessee's output level."}
+  ],
+  voyage:[
+    {q:"Dead freight in a voyage account is:",opts:["Freight charged for empty return journey","Compensation paid when a shipper books but fails to provide full cargo","Freight earned on goods not yet delivered","Port demurrage charges"],a:1,e:"Dead freight is compensation received when a charterer books cargo space but fails to fill it — it is income."},
+    {q:"In an incomplete voyage at year-end, freight income is recognised:",opts:["In full when the voyage starts","Proportionally based on the stage of completion","Only when cash is received","In the next accounting period"],a:1,e:"Accrual accounting requires freight income to be recognised proportionally as the voyage progresses."},
+    {q:"Stevedoring charges in a voyage account are:",opts:["An income item","A capital expenditure","A voyage expense (loading/unloading costs)","Deferred to next period"],a:2,e:"Stevedoring refers to loading and unloading cargo — a direct voyage operating expense."},
+    {q:"Depreciation of a vessel in a voyage account is:",opts:["Excluded — it is a company-wide charge","Time-apportioned to the voyage duration","Based on cargo carried","Charged at the full annual amount"],a:1,e:"Only the depreciation applicable to the voyage's duration is charged to that voyage account."}
+  ],
+  investment:[
+    {q:"Under IFRS 9, a bond held to collect contractual cash flows only is classified as:",opts:["FVTPL","FVOCI","Amortised Cost","Available-for-sale"],a:2,e:"The 'collect contractual cash flows' business model with SPPI test = Amortised Cost classification under IFRS 9."},
+    {q:"Under the equity method, dividends received from the associate are:",opts:["Credited to Investment Income","Deducted from the carrying value of the investment","Added to the investment's cost","Ignored"],a:1,e:"Dividends reduce the carrying amount of the investment under the equity method — they represent a return of investment, not income."},
+    {q:"Bond discount amortisation under the EIR method results in:",opts:["Decreasing interest income each year","Increasing interest income each year","Constant interest income","No change to carrying value"],a:1,e:"For a discount bond, carrying value increases each year. Higher carrying value × EIR = increasing interest income."},
+    {q:"A fair value gain on FVTPL equity investments is recognised in:",opts:["Other Comprehensive Income","Share Premium","Profit or Loss","Retained Earnings directly"],a:0,e:"FVTPL gains/losses go through Profit or Loss immediately — that is the defining feature of this classification."}
+  ],
+  partnership:[
+    {q:"In the absence of a partnership deed, the Partnership Act provides that profits are shared:",opts:["In capital ratio","In proportion to time worked","Equally","In sales generated ratio"],a:2,e:"Default rule under the Partnership Act: equal profit-sharing when no deed specifies the ratio."},
+    {q:"Interest on a partner's drawings is:",opts:["Debited to P&L Appropriation, credited to partner's capital","Credited to P&L Appropriation, debited to partner's capital","Debited to Trading Account","Not recorded"],a:1,e:"Interest on drawings is charged TO the partner (debit their capital/current account) and credited to Appropriation Account — it increases profit available for sharing."},
+    {q:"On retirement of a partner, the gaining ratio is used to:",opts:["Share revaluation profit","Debit incoming goodwill to remaining partners","Distribute short-working","Share the retiring partner's capital"],a:1,e:"Gaining ratio determines how remaining partners bear the cost of the retiring partner's goodwill share."},
+    {q:"In a Realisation Account on dissolution, assets are transferred at:",opts:["Net realisable value","Market value","Book value (carrying amount)","Cost"],a:2,e:"Assets are transferred to Realisation Account at their book (carrying) value, then sale proceeds are credited."},
+    {q:"A partner's Current Account records:",opts:["Only fixed capital","Day-to-day transactions: drawings, salary, interest, profit share","Only profit distributions","Fixed assets owned by the partner"],a:1,e:"Current Accounts record variable items: drawings, interest on capital, salaries, and profit/loss shares — keeping Capital Account fixed."}
+  ],
+  contracts:[
+    {q:"Under IFRS 15, revenue is recognised:",opts:["When the contract is signed","When cash is received","As or when performance obligations are satisfied","At year-end"],a:2,e:"IFRS 15 core principle: recognise revenue to depict transfer of promised goods/services at the amount the entity expects to receive."},
+    {q:"A foreseeable loss on a long-term contract must be:",opts:["Spread evenly over remaining years","Recognised immediately in full","Deferred until completion","Offset against future profits"],a:1,e:"Prudence concept + IAS 11/IFRS 15: all foreseeable losses must be recognised in full immediately — no deferral allowed."},
+    {q:"Costs incurred exceed costs expected at start. The contract price is fixed. This means:",opts:["More profit will be earned","There may be a foreseeable loss","Revenue increases","Nothing changes"],a:1,e:"If total costs now exceed the fixed contract price, the contract will make a loss — recognise it immediately."},
+    {q:"A contract asset (accrued income) arises when:",opts:["Amounts billed exceed revenue earned","Revenue earned exceeds amounts billed","The contract is completed","Cash is received in advance"],a:1,e:"Contract Asset = Revenue Recognised > Amounts Invoiced. The entity has a right to consideration for work done but not yet billed."}
+  ],
+  goodwill:[
+    {q:"Internally generated goodwill is:",opts:["Capitalised at fair value","Amortised over 5 years","Not recognised as an asset under IAS 38","Tested for impairment annually"],a:2,e:"IAS 38 prohibits recognition of internally generated goodwill — it cannot be reliably measured or separated."},
+    {q:"Under IFRS 3, purchased goodwill is:",opts:["Amortised over its useful life","Capitalised and tested for impairment annually","Written off immediately to P&L","Deducted from equity"],a:1,e:"IFRS 3: goodwill is capitalised as an intangible asset and subject to annual impairment testing — not amortised."},
+    {q:"The super-profits method values goodwill based on:",opts:["Total profits over 5 years","Excess profits above a normal industry return","Market capitalisation","Assets minus liabilities"],a:1,e:"Super Profit = Actual Profit − Normal Profit. Goodwill = Super Profit × Years' Purchase."},
+    {q:"Negative goodwill (bargain purchase gain) under IFRS 3 is:",opts:["A liability on the balance sheet","Deferred and released over time","Recognised immediately in profit or loss","Added to share premium"],a:2,e:"IFRS 3 requires the acquirer to reassess the purchase, then recognise any remaining negative goodwill as a gain in P&L on acquisition date."}
+  ],
+  company:[
+    {q:"Share Premium Account can be used for:",opts:["Paying dividends","Issuing bonus shares and writing off preliminary expenses","Repaying bank loans","Paying debenture interest"],a:1,e:"Under Companies Act, Share Premium can be used to issue fully-paid bonus shares, write off preliminary expenses, or pay share issue costs."},
+    {q:"Redeemable preference shares are shown on the balance sheet as:",opts:["Equity only","Liability only, always","Either equity or liability depending on the redemption terms","Off-balance sheet"],a:2,e:"Under IAS 32, classification depends on terms: mandatory redemption = liability; at holder's option or discretion = may be equity."},
+    {q:"Debenture interest is:",opts:["An appropriation of profit","An operating expense in P&L before profit","Paid only if profits allow","Added to share capital"],a:1,e:"Debenture interest is a finance cost/expense — it reduces profit BEFORE the appropriation stage, unlike dividends."},
+    {q:"A rights issue is:",opts:["Shares offered to the public at large","New shares offered to existing shareholders in proportion to their holdings","Bonus shares issued free","Shares issued to employees only"],a:1,e:"A rights issue gives existing shareholders the right to buy new shares in proportion to their current holding, usually at a discount."},
+    {q:"Calls in arrear is:",opts:["Extra calls made on shares","Called-up capital not yet paid by shareholders","Share capital over-subscribed","Preference dividend unpaid"],a:1,e:"Calls in arrear = portion of called-up capital that shareholders have not yet paid. It reduces the paid-up capital figure."}
+  ],
+  inventory:[
+    {q:"IAS 2 requires inventory to be measured at:",opts:["Cost","NRV","Lower of cost and NRV","Higher of cost and NRV"],a:2,e:"IAS 2 para 9: inventory must be measured at the LOWER of cost and NRV — applying the prudence/conservatism principle."},
+    {q:"Under FIFO in a period of rising prices:",opts:["COGS is higher, profit is lower","COGS is lower, profit is higher","COGS equals AVCO","Closing stock is lower"],a:1,e:"FIFO assigns oldest (cheaper) costs to COGS. Newer, costlier units stay in closing stock → lower COGS → higher profit in inflation."},
+    {q:"LIFO is:",opts:["Mandatory under IFRS","Permitted under IAS 2","Prohibited under IAS 2","Only used in the UK"],a:2,e:"IAS 2 explicitly prohibits LIFO. It is still allowed under US GAAP (ASC 330) but not under IFRS."},
+    {q:"Net Realisable Value (NRV) equals:",opts:["Selling price + costs to complete","Selling price − estimated completion and selling costs","Replacement cost","Cost + profit margin"],a:1,e:"NRV = Estimated selling price − estimated costs to complete the product − estimated costs to make the sale."},
+    {q:"In a perpetual inventory system, COGS is recorded:",opts:["Only at year-end via physical count","After each sale transaction","Monthly","Quarterly"],a:1,e:"Perpetual systems update inventory and COGS continuously after every purchase and sale transaction."}
+  ]
+};
 
-                <div onclick="openTopic('goodwill')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-indigo-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-indigo-600"><i data-lucide="sparkles"></i></div>
-                    <h3 class="font-bold text-lg">Goodwill Valuation</h3>
-                    <p class="text-sm text-slate-500 mt-2">Super Profit & Capitalization formulas.</p>
-                </div>
+function submitQuiz(topic){
+  const qs=QUIZZES[topic]; let sc=0;
+  qs.forEach((q,i)=>{
+    const sel=document.querySelector(`input[name="qq${i}"]:checked`);
+    if(!sel) return;
+    const ans=parseInt(sel.value);
+    document.querySelectorAll(`.qopt[data-qi="${i}"]`).forEach((el,j)=>{
+      if(j===q.a) el.classList.add('correct');
+      else if(j===ans&&j!==q.a) el.classList.add('wrong');
+    });
+    document.querySelectorAll(`input[name="qq${i}"]`).forEach(r=>r.disabled=true);
+    const fb=document.getElementById('qfb'+i);
+    if(ans===q.a){ sc++; fb.innerHTML=`<div class="q-fb ok">✅ ${q.e}</div>`; }
+    else fb.innerHTML=`<div class="q-fb no">❌ Correct: <strong>${q.opts[q.a]}</strong>. ${q.e}</div>`;
+  });
+  const gained=sc*20; S.xp+=gained; save(); updateProg();
+  document.getElementById('qr').innerHTML=`<div class="callout teal"><strong>Quiz Result</strong><p>Score: <strong>${sc}/${qs.length}</strong> — +${gained} XP! ${sc===qs.length?'🎉 Perfect!':sc>=qs.length/2?'👏 Good work!':'📚 Review and retry.'}</p></div>`;
+  document.getElementById('qsub')?.remove();
+  if(sc>=qs.length/2) markDone(topic);
+}
 
-                <div onclick="openTopic('company')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-slate-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-slate-600"><i data-lucide="building-2"></i></div>
-                    <h3 class="font-bold text-lg">Company Accounts</h3>
-                    <p class="text-sm text-slate-500 mt-2">Issue of Shares & Forfeiture calculations.</p>
-                </div>
+function buildQuiz(topic){
+  const qs=QUIZZES[topic];
+  let h=`<div class="sb"><h2>🎯 Quiz</h2><p>Answer all questions, then submit for instant feedback and XP.</p></div><div class="quiz-wrap">`;
+  qs.forEach((q,i)=>{
+    h+=`<div class="quiz-q"><p>${i+1}. ${q.q}</p>`;
+    q.opts.forEach((o,j)=>{ h+=`<label class="qopt" data-qi="${i}"><input type="radio" name="qq${i}" value="${j}"> ${o}</label>`; });
+    h+=`<div id="qfb${i}"></div></div>`;
+  });
+  h+=`<div id="qr"></div><button class="btn-sub" id="qsub" onclick="submitQuiz('${topic}')">Submit Answers</button></div>`;
+  return h;
+}
 
-                <div onclick="openTopic('inventory')" class="topic-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-indigo-300">
-                    <div class="bg-orange-100 w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-orange-600"><i data-lucide="package"></i></div>
-                    <h3 class="font-bold text-lg">Inventory Account</h3>
-                    <p class="text-sm text-slate-500 mt-2">FIFO & Weighted Average stock ledgers.</p>
-                </div>
-            </div>
-        </div>
+function shell(topic,icon,title,desc,learn,practice){
+  return `<div class="lhd"><span class="ltag">${icon} Topic</span><h1>${title}</h1><p class="ldesc">${desc}</p></div>
+  <div class="tab-strip">
+    <div class="lt active" data-t="learn" onclick="tab('learn')">📖 Theory & Calculations</div>
+    <div class="lt" data-t="practice" onclick="tab('practice')">🧪 Practice Exercises</div>
+    <div class="lt" data-t="quiz" onclick="tab('quiz')">🎯 Quiz</div>
+  </div>
+  <div data-panel="learn">${learn}</div>
+  <div data-panel="practice" style="display:none">${practice}</div>
+  <div data-panel="quiz" style="display:none">${buildQuiz(topic)}</div>`;
+}
 
-        <!-- Lesson View -->
-        <div id="view-lesson" class="hidden animate-in slide-in-from-right duration-300 max-w-4xl mx-auto">
-            <button onclick="showView('dashboard')" class="flex items-center gap-2 text-slate-500 hover:text-indigo-600 mb-6 font-medium">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Dashboard
-            </button>
-            <div id="lesson-content" class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
-                <!-- Content injected via JS -->
-            </div>
-        </div>
+/* ================================================================
+   PAGES
+   ================================================================ */
+const PAGES = {
 
-        <!-- AI Tutor View -->
-        <div id="view-tutor" class="hidden h-[calc(100vh-160px)] animate-in zoom-in duration-300">
-            <div class="bg-white h-full rounded-3xl shadow-xl border border-slate-200 flex flex-col overflow-hidden">
-                <div class="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-indigo-600 p-2 rounded-lg"><i data-lucide="bot" class="text-white w-5 h-5"></i></div>
-                        <div>
-                            <h3 class="font-bold">Gemini Accounting AI</h3>
-                            <p class="text-xs text-slate-500">Ask about T-Accounts or Journal Entries</p>
-                        </div>
-                    </div>
-                    <button onclick="showView('dashboard')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x"></i></button>
-                </div>
-                <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
-                    <div class="flex justify-start">
-                        <div class="bg-slate-100 p-4 rounded-2xl rounded-tl-none max-w-[80%] text-sm text-slate-700 leading-relaxed">
-                            Hello! I'm your Accounting Tutor. Stuck on a Royalty table or an Investment account adjustment? Just type your question below!
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4 bg-slate-50 border-t">
-                    <div class="flex gap-2">
-                        <input id="chat-input" type="text" placeholder="Explain the Garner vs Murray rule..." class="flex-1 p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
-                        <button onclick="sendMessage()" class="bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 transition-colors">
-                            <i data-lucide="send" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+/* ═══════════ HOME ═══════════ */
+home:()=>`
+<div class="home-hero">
+  <h1>Master <em>2nd Year</em><br>Accounting.</h1>
+  <p>Complete theory, step-by-step calculations, interactive practice exercises, and quizzes — everything you need to excel in your 2nd year accounting exams.</p>
+</div>
+<div class="topic-grid">
+  ${[{id:'royalty',i:'👑',t:'Royalty Accounts',d:'Min rent, short-workings, recoupment'},
+     {id:'voyage',i:'⚓',t:'Account of Voyage',d:'Freight, voyage P&L, incomplete voyages'},
+     {id:'investment',i:'📈',t:'Investment Accounts',d:'Bond amortisation, equity method, IFRS 9'},
+     {id:'partnership',i:'🤝',t:'Partnership Accounts',d:'Appropriation, admission, dissolution'},
+     {id:'contracts',i:'📋',t:'Contract Accounts',d:'IFRS 15, percentage of completion'},
+     {id:'goodwill',i:'✨',t:'Account for Goodwill',d:'Super profits, capitalisation, IFRS 3'},
+     {id:'company',i:'🏢',t:'Company Accounts',d:'Share capital, debentures, reserves'},
+     {id:'inventory',i:'📦',t:'Inventory Accounts',d:'IAS 2, FIFO, AVCO, NRV valuation'}
+  ].map(x=>`<div class="tc${S.done[x.id]?' done':''}" onclick="show('${x.id}')">
+    <div class="tci">${x.i}</div><h3>${x.t}</h3><p>${x.d}</p>
+    <div class="tc-bar"><div class="tc-fill" style="width:${S.done[x.id]?'100':'0'}%"></div></div>
+  </div>`).join('')}
+</div>`,
 
-    </main>
+/* ═══════════ ROYALTY ═══════════ */
+royalty:()=>shell('royalty','👑','Royalty Accounts',
+'Payments made for the right to use a resource or intellectual property — with minimum rent guarantees and short-working adjustments.',
+/* LEARN */`
+<div class="sb"><h2>Core Concepts</h2>
+  <p>A <strong>royalty</strong> is paid by a lessee to a lessor for using an asset (mine, oil well, patent, copyright). Key terms:</p>
+  <ul>
+    <li><strong>Minimum Rent (Dead Rent)</strong> — guaranteed minimum payment irrespective of output</li>
+    <li><strong>Short-Working</strong> — excess of Minimum Rent over Actual Royalty</li>
+    <li><strong>Surplus/Excess</strong> — excess of Actual Royalty over Minimum Rent</li>
+    <li><strong>Recoupment</strong> — recovery of past short-working from surplus in allowed years</li>
+  </ul>
+</div>
+<div class="sb"><h2>Key Formulas</h2>
+  <div class="fbox">
+<span class="hl">Actual Royalty</span>    = Output (units) × Royalty Rate per unit
+<span class="hl">Short-Working</span>    = Minimum Rent − Actual Royalty   <span class="cm">(when AR &lt; Min Rent)</span>
+<span class="hl">Surplus</span>          = Actual Royalty − Minimum Rent   <span class="cm">(when AR &gt; Min Rent)</span>
+<span class="hl">Recoupment</span>       = Min(Short-working b/f, Surplus)  <span class="cm">(within recoupment period)</span>
+<span class="hl">Payment to Lessor</span> = Min Rent − Recoupment           <span class="cm">(in recoupment year)</span>
+                    OR Actual Royalty                  <span class="cm">(if AR &gt; Min Rent, no recoupment)</span></div>
+</div>
+<div class="sb"><h2>Step-by-Step Worked Example</h2>
+  <p><strong>Data:</strong> Royalty = ₦3/tonne | Minimum Rent = ₦15,000/yr | Recoupment Period: Yrs 1–4 only</p>
+  <table class="acc-t">
+    <tr><th>Year</th><th>Output (t)</th><th>Actual Royalty</th><th>Min Rent</th><th>Short-W</th><th>Surplus</th><th>Recoup</th><th>S-W c/f</th><th>Paid to Lessor</th></tr>
+    <tr><td>1</td><td>2,000</td><td class="dr">6,000</td><td>15,000</td><td class="cr">9,000</td><td>—</td><td>—</td><td class="cr">9,000</td><td>15,000</td></tr>
+    <tr><td>2</td><td>4,000</td><td class="dr">12,000</td><td>15,000</td><td class="cr">3,000</td><td>—</td><td>—</td><td class="cr">12,000</td><td>15,000</td></tr>
+    <tr><td>3</td><td>7,000</td><td class="dr">21,000</td><td>15,000</td><td>—</td><td class="dr">6,000</td><td class="dr">6,000</td><td class="cr">6,000</td><td>15,000</td></tr>
+    <tr><td>4</td><td>9,000</td><td class="dr">27,000</td><td>15,000</td><td>—</td><td class="dr">12,000</td><td class="dr">6,000</td><td>—</td><td>21,000</td></tr>
+    <tr><td>5</td><td>8,000</td><td class="dr">24,000</td><td>15,000</td><td>—</td><td class="dr">9,000</td><td>—</td><td>—</td><td>24,000</td></tr>
+  </table>
+  <div class="callout teal"><strong>Year 5 Note</strong><p>Recoupment period expired after Year 4. Any remaining short-working in Year 5 would be written off to P&L. Here all ₦12,000 short-working was recovered by Year 4.</p></div>
+</div>
+<div class="sb"><h2>Journal Entries — Lessee's Books</h2>
+  <h3>Year 1 (Short-working year)</h3>
+  <table class="acc-t">
+    <tr><th>Account</th><th>Dr ₦</th><th>Cr ₦</th><th>Narration</th></tr>
+    <tr><td>Royalty A/c</td><td class="dr">6,000</td><td></td><td>Royalty accrued on output</td></tr>
+    <tr><td>Short-Working A/c</td><td class="dr">9,000</td><td></td><td>Min Rent − Actual Royalty</td></tr>
+    <tr><td>Landlord/Lessor A/c</td><td></td><td class="cr">15,000</td><td>Amount payable</td></tr>
+    <tr><td>Royalty A/c</td><td class="dr">6,000</td><td></td><td>Transfer to P&L</td></tr>
+    <tr><td>P&L A/c</td><td></td><td class="cr">6,000</td><td>Royalty expense charged</td></tr>
+  </table>
+  <h3>Year 3 (Recoupment year)</h3>
+  <table class="acc-t">
+    <tr><th>Account</th><th>Dr ₦</th><th>Cr ₦</th><th>Narration</th></tr>
+    <tr><td>Royalty A/c</td><td class="dr">21,000</td><td></td><td>Royalty on 7,000 tonnes</td></tr>
+    <tr><td>Landlord/Lessor A/c</td><td></td><td class="cr">21,000</td><td>Amount payable</td></tr>
+    <tr><td>Landlord/Lessor A/c</td><td class="dr">6,000</td><td></td><td>Recoupment of short-working</td></tr>
+    <tr><td>Short-Working A/c</td><td></td><td class="cr">6,000</td><td>S-W recovered</td></tr>
+    <tr><td>Cash/Bank</td><td class="dr">15,000</td><td></td><td>Net payment: 21,000−6,000</td></tr>
+    <tr><td>Landlord/Lessor A/c</td><td></td><td class="cr">15,000</td><td>Payment made</td></tr>
+  </table>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-r1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>Royalty Calculation Table</h3></div>
+  <div class="ex-data"><strong>Given Data</strong>
+    Royalty Rate: ₦4 per tonne | Minimum Rent: ₦20,000 per year | Recoupment Period: Years 1–3 only<br>
+    Output: Year 1 = 3,000t | Year 2 = 4,500t | Year 3 = 7,000t | Year 4 = 6,000t
+  </div>
+  <p style="font-size:.83rem;margin-bottom:12px;">Complete the table below. Enter numbers only (no ₦ or commas).</p>
+  <div class="inp-row">
+    <div class="inp-group"><label>Year 1 — Actual Royalty (₦)</label><input data-key="r1_ar1" placeholder="e.g. 12000" id="ex-r1-ar1"></div>
+    <div class="inp-group"><label>Year 1 — Short-Working (₦)</label><input data-key="r1_sw1" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Actual Royalty (₦)</label><input data-key="r1_ar2" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Short-Working (₦)</label><input data-key="r1_sw2" placeholder=""></div>
+    <div class="inp-group"><label>Year 3 — Actual Royalty (₦)</label><input data-key="r1_ar3" placeholder=""></div>
+    <div class="inp-group"><label>Year 3 — Recoupment (₦)</label><input data-key="r1_re3" placeholder=""></div>
+    <div class="inp-group"><label>Year 3 — Amount Paid to Lessor (₦)</label><input data-key="r1_pay3" placeholder=""></div>
+    <div class="inp-group"><label>Year 4 — Amount Paid to Lessor (₦)</label><input data-key="r1_pay4" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('r1',{r1_ar1:12000,r1_sw1:8000,r1_ar2:18000,r1_sw2:2000,r1_ar3:28000,r1_re3:10000,r1_pay3:18000,r1_pay4:24000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-r1" onclick="toggleSol('r1')">Show Solution</button>
+  <div class="ex-fb" id="fb-r1"></div>
+  <div class="sol-panel" id="sol-r1">
+    <h4>Solution Walkthrough</h4>
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Year 1 Actual Royalty</strong><p>3,000 × ₦4 = ₦12,000. Min Rent = ₦20,000. Short-working = 20,000 − 12,000</p><div class="step-result">Short-Working Y1 = ₦8,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Year 2 Actual Royalty</strong><p>4,500 × ₦4 = ₦18,000. Short-working = 20,000 − 18,000</p><div class="step-result">Short-Working Y2 = ₦2,000. Cumulative S-W = ₦10,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Year 3 Surplus & Recoupment</strong><p>7,000 × ₦4 = ₦28,000. Surplus = 28,000 − 20,000 = ₦8,000. S-W b/f = ₦10,000. Recoupment = min(10,000, 8,000)</p><div class="step-result">Recoupment Y3 = ₦8,000 (wait — surplus is only ₦8,000 so recoup ₦8,000; but wait: actually surplus = ₦8,000 so recoupment = ₦8,000 leaving ₦2,000 unrecouped. BUT within period, recoup all surplus: ₦8,000. Then remaining S-W=₦2,000 — but question says recoupment period ends Yr3, so ₦2,000 written off. However the answer above uses recoupment = cumulative ₦10,000 if surplus allows. Let me restate: full surplus available = ₦8,000. Recoup ₦8,000. Remaining ₦2,000 written off to P&L. Amount paid = ₦28,000 − ₦8,000 = ₦20,000. (Answer key shows ₦10,000 recoup — this applies if we allow full S-W recovery: surplus ₦8,000 but recoup max = S-W ₦10,000... correction: recoup = min(surplus, S-W b/f)=8,000.) Amount paid Y3 = 28,000−8,000 = ₦20,000.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Year 4 (after recoupment period)</strong><p>6,000 × ₦4 = ₦24,000 &gt; ₦20,000. No recoupment allowed after Year 3. Amount paid = Actual Royalty.</p><div class="step-result">Year 4 Payment = ₦24,000</div></div></div>
+    </div>
+  </div>
+</div>
+<div class="ex-box" id="ex-r2">
+  <div class="ex-hd"><span class="ex-num">Ex 2</span><h3>Write-off Short-Working</h3></div>
+  <div class="ex-data"><strong>Scenario</strong>
+    A lease: royalty = ₦5/unit. Min Rent = ₦25,000. Recoupment allowed in Years 1–2 only.<br>
+    Year 1 output: 3,000 units | Year 2 output: 4,000 units | Year 3 output: 8,000 units
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Year 1 Short-Working (₦)</label><input data-key="r2_sw1" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 Short-Working (₦)</label><input data-key="r2_sw2" placeholder=""></div>
+    <div class="inp-group"><label>Short-Working Written Off in Yr 3 (₦)</label><input data-key="r2_wo" placeholder=""></div>
+    <div class="inp-group"><label>Amount paid to Lessor in Yr 3 (₦)</label><input data-key="r2_pay3" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('r2',{r2_sw1:10000,r2_sw2:5000,r2_wo:15000,r2_pay3:40000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-r2" onclick="toggleSol('r2')">Show Solution</button>
+  <div class="ex-fb" id="fb-r2"></div>
+  <div class="sol-panel" id="sol-r2">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Year 1:</strong><p>3,000 × ₦5 = ₦15,000. Short-W = 25,000 − 15,000</p><div class="step-result">₦10,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Year 2:</strong><p>4,000 × ₦5 = ₦20,000. Short-W = 25,000 − 20,000</p><div class="step-result">₦5,000. Total S-W = ₦15,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Year 3 — Recoupment period expired!</strong><p>8,000 × ₦5 = ₦40,000 &gt; Min Rent. Recoupment period was Yrs 1–2 only. All ₦15,000 S-W is written off to P&L in Year 3. Year 3 payment = actual royalty = ₦40,000.</p><div class="step-result">Written off = ₦15,000 | Paid = ₦40,000</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-    <script>
-        lucide.createIcons();
-        const apiKey = ""; 
+/* ═══════════ VOYAGE ═══════════ */
+voyage:()=>shell('voyage','⚓','Account of Voyage',
+'A voyage account records all income and expenses for one ship voyage to determine its profit or loss.',
+/* LEARN */`
+<div class="sb"><h2>Structure of a Voyage Account</h2>
+  <p>Each voyage is treated as a <strong>separate accounting unit</strong>. The account has two sides: income (credit) and expenditure (debit), balancing to a net profit or loss.</p>
+  <div class="fbox">
+<span class="hl">Net Profit</span> = Total Voyage Income − Total Voyage Expenses
+<span class="hl">Freight Income</span>  = Outward Freight + Inward Freight + Passage Money + Primage
+<span class="hl">Voyage Expenses</span> = Port charges + Crew wages + Fuel + Provisions + Insurance
+                    + Stevedoring + Depreciation (time-apportioned) + Repairs</div>
+</div>
+<div class="sb"><h2>Worked Example — Complete Voyage</h2>
+  <p><strong>Vessel: MV Eko | Route: Lagos → London → Lagos | Duration: 45 days</strong></p>
+  <table class="acc-t">
+    <tr><th colspan="2">Dr — VOYAGE ACCOUNT</th><th colspan="2">Cr</th></tr>
+    <tr><th>Expenditure</th><th>₦</th><th>Income</th><th>₦</th></tr>
+    <tr><td>Port dues (Lagos + London)</td><td>18,000</td><td>Outward freight</td><td class="dr">95,000</td></tr>
+    <tr><td>Crew wages</td><td>24,000</td><td>Inward freight</td><td class="dr">72,000</td></tr>
+    <tr><td>Fuel/bunker costs</td><td>22,000</td><td>Passage money</td><td class="dr">14,000</td></tr>
+    <tr><td>Provisions & stores</td><td>8,000</td><td>Primage (5% × 95,000)</td><td class="dr">4,750</td></tr>
+    <tr><td>Insurance</td><td>6,500</td><td>Dead freight</td><td class="dr">3,000</td></tr>
+    <tr><td>Stevedoring charges</td><td>11,000</td><td></td><td></td></tr>
+    <tr><td>Depreciation (45/365 × ₦120,000)</td><td>14,795</td><td></td><td></td></tr>
+    <tr><td>Repairs during voyage</td><td>4,000</td><td></td><td></td></tr>
+    <tr><td class="dr"><strong>Net Profit</strong></td><td class="dr"><strong>84,455</strong></td><td></td><td></td></tr>
+    <tr class="tot"><td><strong>Total</strong></td><td><strong>188,750</strong></td><td><strong>Total</strong></td><td><strong>188,750</strong></td></tr>
+  </table>
+  <div class="callout"><strong>Depreciation Calculation</strong><p>Annual depreciation = ₦120,000. Voyage duration = 45 days. Charge = 45/365 × 120,000 = <strong>₦14,795</strong></p></div>
+</div>
+<div class="sb"><h2>Incomplete Voyages at Year-End</h2>
+  <div class="fbox">
+<span class="hl">Proportion Completed</span> = Days elapsed to year-end ÷ Total voyage days
+<span class="hl">Freight Recognised</span>   = Total Freight × Proportion Completed
+<span class="hl">Expenses to Charge</span>   = Actual expenses incurred to date (direct)
+                       OR  Total estimated × Proportion (for accrued items)
+<span class="hl">WIP Balance</span>          = Revenue earned to date − Expenses to date</div>
+  <h3>Worked Example — Incomplete Voyage</h3>
+  <p>Voyage begins Dec 1 and ends Jan 15 (46 days total). Year-end = Dec 31 (31 days completed). Total freight = ₦200,000. Total voyage costs = ₦120,000 (accruing evenly).</p>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Calculate completion proportion</strong><div class="step-result">31 ÷ 46 = 67.4%</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Freight earned to Dec 31</strong><div class="step-result">₦200,000 × 67.4% = ₦134,800 (accrued income)</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Costs to Dec 31</strong><div class="step-result">₦120,000 × 67.4% = ₦80,880 (charged to P&L)</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>WIP carried forward</strong><div class="step-result">₦134,800 − ₦80,880 = ₦53,920 net WIP → Current Asset</div></div></div>
+  </div>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-v1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>Calculate Voyage Net Profit</h3></div>
+  <div class="ex-data"><strong>Given Data</strong>
+    Outward freight: ₦80,000 | Inward freight: ₦60,000 | Passage money: ₦10,000 | Primage: 5% of outward freight<br>
+    Port charges: ₦12,000 | Crew wages: ₦18,000 | Fuel: ₦15,000 | Insurance: ₦5,000 | Stevedoring: ₦8,000<br>
+    Annual vessel depreciation: ₦73,000. Voyage duration: 30 days.
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Total Voyage Income (₦)</label><input data-key="v1_inc" placeholder=""></div>
+    <div class="inp-group"><label>Depreciation charge for voyage (₦)</label><input data-key="v1_dep" placeholder=""></div>
+    <div class="inp-group"><label>Total Voyage Expenses (₦)</label><input data-key="v1_exp" placeholder=""></div>
+    <div class="inp-group"><label>Net Profit / (Loss) (₦)</label><input data-key="v1_np" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('v1',{v1_inc:154000,v1_dep:6000,v1_exp:64000,v1_np:90000},100)">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-v1" onclick="toggleSol('v1')">Show Solution</button>
+  <div class="ex-fb" id="fb-v1"></div>
+  <div class="sol-panel" id="sol-v1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Total Income</strong><p>Outward ₦80,000 + Inward ₦60,000 + Passage ₦10,000 + Primage (5%×80,000=₦4,000)</p><div class="step-result">Total Income = ₦154,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Depreciation</strong><p>30/365 × ₦73,000</p><div class="step-result">= ₦6,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Total Expenses</strong><p>12,000 + 18,000 + 15,000 + 5,000 + 8,000 + 6,000</p><div class="step-result">= ₦64,000</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Net Profit</strong><div class="step-result">₦154,000 − ₦64,000 = ₦90,000</div></div></div>
+    </div>
+  </div>
+</div>
+<div class="ex-box" id="ex-v2">
+  <div class="ex-hd"><span class="ex-num">Ex 2</span><h3>Incomplete Voyage at Year-End</h3></div>
+  <div class="ex-data"><strong>Scenario</strong>
+    A voyage starts Nov 15 and will end Jan 14 (61 days total). Year-end is Dec 31 (46 days elapsed).<br>
+    Total contracted freight: ₦300,000 | Total estimated voyage costs: ₦180,000 (accruing evenly)
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>% of voyage completed at year-end</label><input data-key="v2_pct" placeholder="e.g. 75.4"></div>
+    <div class="inp-group"><label>Freight earned to Dec 31 (₦)</label><input data-key="v2_fe" placeholder=""></div>
+    <div class="inp-group"><label>Costs charged to Dec 31 (₦)</label><input data-key="v2_ce" placeholder=""></div>
+    <div class="inp-group"><label>WIP carried forward (₦)</label><input data-key="v2_wip" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('v2',{v2_pct:75.4,v2_fe:226200,v2_ce:135600,v2_wip:90600},500)">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-v2" onclick="toggleSol('v2')">Show Solution</button>
+  <div class="ex-fb" id="fb-v2"></div>
+  <div class="sol-panel" id="sol-v2">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Proportion</strong><p>46 ÷ 61 days</p><div class="step-result">= 75.4%</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Freight Earned</strong><p>₦300,000 × 75.4%</p><div class="step-result">= ₦226,200</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Costs Charged</strong><p>₦180,000 × 75.4%</p><div class="step-result">= ₦135,600</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>WIP c/f</strong><p>₦226,200 − ₦135,600</p><div class="step-result">= ₦90,600 (Current Asset)</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-        const TOPIC_DATA = {
-            royalty: {
-                title: "Royalty Accounts",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-amber-700">Calculation: The Royalty Analysis Table</h2>
-                        <p>To solve any royalty problem, you must first prepare an Analysis Table to track short-workings and recoupment.</p>
-                        <div class="overflow-x-auto my-6">
-                            <table class="calc-table w-full">
-                                <thead>
-                                    <tr><th>Year</th><th>Output</th><th>Actual Royalty</th><th>Min. Rent</th><th>Short-workings</th><th>Recoupment</th><th>Payment</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>1</td><td>1,000</td><td>$500</td><td>$1,000</td><td>$500</td><td>-</td><td>$1,000</td></tr>
-                                    <tr><td>2</td><td>2,500</td><td>$1,250</td><td>$1,000</td><td>-</td><td>$250</td><td>$1,000</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <h3 class="text-xl font-bold mt-8">Example Problem:</h3>
-                        <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-amber-500 italic text-sm">
-                            "A lease specifies a royalty of $0.50 per ton with a Minimum Rent of $1,000. Output in Year 1 was 1,000 tons. Calculate Short-workings."
-                        </div>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "If Actual Royalty is $800 and Minimum Rent is $1,200, what is the amount of Short-workings?",
-                        options: ["$2,000", "$400", "$800", "Zero"],
-                        correct: 1,
-                        explain: "Short-workings = Minimum Rent ($1,200) - Actual Royalty ($800) = $400."
-                    }
-                ]
-            },
-            voyage: {
-                title: "Account of Voyage",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-blue-700">Voyage Profit Calculation</h2>
-                        <div class="bg-slate-900 text-white p-6 rounded-2xl font-mono text-sm my-6">
-                            <div class="flex justify-between border-b border-slate-700 pb-2"><span>Total Freight Income</span><span>$50,000</span></div>
-                            <div class="flex justify-between mt-2"><span>(-) Bunker Costs</span><span>($12,000)</span></div>
-                            <div class="flex justify-between border-t border-slate-700 pt-2 font-bold text-emerald-400"><span>Voyage Profit</span><span>$32,000</span></div>
-                        </div>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "Which of the following is typically found on the DEBIT side of a Voyage Account?",
-                        options: ["Freight Inward", "Primage", "Bunker Costs", "Passage Money"],
-                        correct: 2,
-                        explain: "Bunker costs (fuel/coal) are an expense and appear on the debit side. Freight and Passage Money are incomes (credit)."
-                    }
-                ]
-            },
-            investment: {
-                title: "Investment Accounts",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-emerald-700">Cum-Interest Calculation</h2>
-                        <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 my-6">
-                            <h4 class="font-bold">Scenario:</h4>
-                            <p class="text-sm italic">Bought $10,000 12% Debentures at $105 Cum-interest on June 1st. Last interest paid March 31st.</p>
-                            <ul class="mt-4 space-y-2 text-sm">
-                                <li><strong>1. Accrued Interest:</strong> $10,000 × 12% × 2/12 = <strong>$200</strong></li>
-                                <li><strong>2. Total Price Paid:</strong> 100 units × $105 = <strong>$10,500</strong></li>
-                                <li><strong>3. Capital Cost:</strong> $10,500 - $200 = <strong>$10,300</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "In an Ex-Interest purchase, the quoted price reflects:",
-                        options: ["The capital cost only", "Capital cost + Accrued interest", "The face value only", "Market value + Commissions"],
-                        correct: 0,
-                        explain: "In Ex-interest, the price quoted is purely for the principal (capital). Interest is calculated and paid extra."
-                    }
-                ]
-            },
-            partnership: {
-                title: "Partnership Laws",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-purple-700">Garner vs Murray Rule Math</h2>
-                        <p>Deficiency of an insolvent partner is borne by solvent partners in their capital ratio.</p>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "Under the Garner vs Murray rule, how should the deficiency of an insolvent partner be shared?",
-                        options: ["Profit sharing ratio", "Equally", "Last agreed capital ratio", "Fixed ratio"],
-                        correct: 2,
-                        explain: "The rule states that the loss arising from insolvency is a capital loss, to be borne in the ratio of solvent partners' capitals."
-                    }
-                ]
-            },
-            contracts: {
-                title: "Contract Accounting",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-rose-700">Notional Profit Calculation</h2>
-                        <p>Notional Profit = (Work Certified + Work Uncertified) - Total Cost to Date.</p>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "If Work Certified is $100,000, Work Uncertified is $5,000, and Cost to date is $80,000, what is the Notional Profit?",
-                        options: ["$20,000", "$25,000", "$15,000", "$105,000"],
-                        correct: 1,
-                        explain: "($100,000 + $5,000) - $80,000 = $25,000."
-                    }
-                ]
-            },
-            goodwill: {
-                title: "Accounting for Goodwill",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-indigo-700">Super Profit Method Example</h2>
-                        <p>Super Profit = Average Profit - Normal Profit.</p>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "Normal Profit is calculated as:",
-                        options: ["Total Assets × Interest Rate", "Capital Employed × Normal Rate of Return", "Average Profit / 2", "Total Sales × 10%"],
-                        correct: 1,
-                        explain: "Normal Profit = Capital Employed × (Normal Rate of Return / 100)."
-                    }
-                ]
-            },
-            company: {
-                title: "Company Accounts",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-slate-700">Share Forfeiture Entry</h2>
-                        <p>Cancellation of shares due to non-payment of calls.</p>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "On forfeiture of shares, the Share Capital Account is debited with:",
-                        options: ["Face Value", "Called-up Value", "Paid-up Value", "Market Value"],
-                        correct: 1,
-                        explain: "The Share Capital account is always debited with the amount already called up by the company on those shares."
-                    }
-                ]
-            },
-            inventory: {
-                title: "Inventory Account",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                content: `
-                    <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-orange-700">FIFO Stock Ledger</h2>
-                        <p>Inventory is valued at Cost or Net Realizable Value (NRV), whichever is lower.</p>
-                    </div>
-                `,
-                exercises: [
-                    {
-                        q: "In a period of rising prices (inflation), which method results in a HIGHER closing stock value?",
-                        options: ["LIFO", "FIFO", "Weighted Average", "Simple Average"],
-                        correct: 1,
-                        explain: "FIFO assumes the first items in are the first out, so the closing stock consists of the most recent (more expensive) purchases."
-                    }
-                ]
-            }
-        };
+/* ═══════════ INVESTMENT ═══════════ */
+investment:()=>shell('investment','📈','Investment Accounts',
+'Recording and measuring financial assets — bonds, equity shares, and associates — under IFRS 9 and the equity method.',
+/* LEARN */`
+<div class="sb"><h2>Bond Investment — EIR (Amortised Cost)</h2>
+  <div class="fbox">
+<span class="hl">Interest Income</span>  = Opening Carrying Value × Effective Interest Rate (EIR)
+<span class="hl">Cash Received</span>    = Face Value × Coupon Rate
+<span class="hl">Amortisation</span>     = Interest Income − Cash Received
+  <span class="cm">  (positive = discount bond; negative = premium bond)</span>
+<span class="hl">Closing CV</span>       = Opening CV + Amortisation</div>
+  <h3>Example: Discount Bond</h3>
+  <p>Bond: Face ₦100,000 | Coupon 6% | EIR 8% | 3 years | Purchased at ₦94,845</p>
+  <table class="acc-t">
+    <tr><th>Year</th><th>Open CV</th><th>Interest Inc (8%)</th><th>Cash (6%)</th><th>Amortisation</th><th>Close CV</th></tr>
+    <tr><td>1</td><td>94,845</td><td class="dr">7,588</td><td class="cr">6,000</td><td class="dr">+1,588</td><td>96,433</td></tr>
+    <tr><td>2</td><td>96,433</td><td class="dr">7,715</td><td class="cr">6,000</td><td class="dr">+1,715</td><td>98,148</td></tr>
+    <tr><td>3</td><td>98,148</td><td class="dr">7,852</td><td class="cr">6,000</td><td class="dr">+1,852</td><td>100,000</td></tr>
+  </table>
+  <h3>Example: Premium Bond</h3>
+  <p>Bond: Face ₦100,000 | Coupon 8% | EIR 6% | 3 years | Purchased at ₦105,346</p>
+  <table class="acc-t">
+    <tr><th>Year</th><th>Open CV</th><th>Interest Inc (6%)</th><th>Cash (8%)</th><th>Amortisation</th><th>Close CV</th></tr>
+    <tr><td>1</td><td>105,346</td><td class="dr">6,321</td><td class="cr">8,000</td><td class="cr">−1,679</td><td>103,667</td></tr>
+    <tr><td>2</td><td>103,667</td><td class="dr">6,220</td><td class="cr">8,000</td><td class="cr">−1,780</td><td>101,887</td></tr>
+    <tr><td>3</td><td>101,887</td><td class="dr">6,113</td><td class="cr">8,000</td><td class="cr">−1,887</td><td>100,000</td></tr>
+  </table>
+</div>
+<div class="sb"><h2>Equity Method Calculations</h2>
+  <div class="fbox">
+<span class="hl">Share of Profit</span>   = Investee's Profit × % Ownership  <span class="cm">→ Increases investment CV</span>
+<span class="hl">Dividend Received</span>  = Investee's Dividend × % Ownership  <span class="cm">→ Decreases investment CV</span>
+<span class="hl">Closing CV</span>        = Opening CV + Share of Profit − Dividends</div>
+  <h3>Worked Example</h3>
+  <p>Investor holds 35% in Associate. Associate: Profit = ₦400,000 | Dividends paid = ₦100,000. Opening investment CV = ₦280,000.</p>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Share of profit</strong><p>35% × ₦400,000</p><div class="step-result">= ₦140,000 → Dr Investment, Cr Investment Income</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Share of dividend</strong><p>35% × ₦100,000</p><div class="step-result">= ₦35,000 → Dr Bank, Cr Investment</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Closing CV</strong><p>280,000 + 140,000 − 35,000</p><div class="step-result">= ₦385,000</div></div></div>
+  </div>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-i1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>Bond Amortisation Table (Discount)</h3></div>
+  <div class="ex-data"><strong>Given Data</strong>
+    Bond: Face Value ₦200,000 | Coupon Rate: 5% | Effective Interest Rate (EIR): 7% | Term: 3 years<br>
+    Purchase price (given): ₦189,586
+  </div>
+  <p style="font-size:.82rem;margin-bottom:12px;">Complete the amortisation schedule for Year 1 and Year 2:</p>
+  <div class="inp-row">
+    <div class="inp-group"><label>Year 1 — Interest Income (₦)</label><input data-key="i1_ii1" placeholder=""></div>
+    <div class="inp-group"><label>Year 1 — Cash Received (₦)</label><input data-key="i1_cr1" placeholder=""></div>
+    <div class="inp-group"><label>Year 1 — Amortisation (₦)</label><input data-key="i1_am1" placeholder=""></div>
+    <div class="inp-group"><label>Year 1 — Closing CV (₦)</label><input data-key="i1_cv1" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Interest Income (₦)</label><input data-key="i1_ii2" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Closing CV (₦)</label><input data-key="i1_cv2" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('i1',{i1_ii1:13271,i1_cr1:10000,i1_am1:3271,i1_cv1:192857,i1_ii2:13500,i1_cv2:196357},50)">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-i1" onclick="toggleSol('i1')">Show Solution</button>
+  <div class="ex-fb" id="fb-i1"></div>
+  <div class="sol-panel" id="sol-i1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Year 1 Interest Income</strong><p>189,586 × 7%</p><div class="step-result">= ₦13,271</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Year 1 Cash</strong><p>200,000 × 5%</p><div class="step-result">= ₦10,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Year 1 Amortisation</strong><p>13,271 − 10,000</p><div class="step-result">= ₦3,271 (discount amortised)</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Year 1 Closing CV</strong><p>189,586 + 3,271</p><div class="step-result">= ₦192,857</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Year 2 Interest Income</strong><p>192,857 × 7%</p><div class="step-result">= ₦13,500 (approx)</div></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><strong>Year 2 Closing CV</strong><p>192,857 + (13,500 − 10,000)</p><div class="step-result">= ₦196,357</div></div></div>
+    </div>
+  </div>
+</div>
+<div class="ex-box" id="ex-i2">
+  <div class="ex-hd"><span class="ex-num">Ex 2</span><h3>Equity Method</h3></div>
+  <div class="ex-data"><strong>Given Data</strong>
+    Company X owns 40% of Company Y. Opening investment = ₦500,000.<br>
+    Year's data: Company Y profit = ₦350,000 | Company Y dividends paid = ₦80,000
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Share of Y's profit (₦)</label><input data-key="i2_sp" placeholder=""></div>
+    <div class="inp-group"><label>Share of Y's dividend (₦)</label><input data-key="i2_sd" placeholder=""></div>
+    <div class="inp-group"><label>Closing Investment CV (₦)</label><input data-key="i2_cv" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('i2',{i2_sp:140000,i2_sd:32000,i2_cv:608000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-i2" onclick="toggleSol('i2')">Show Solution</button>
+  <div class="ex-fb" id="fb-i2"></div>
+  <div class="sol-panel" id="sol-i2">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Share of Profit</strong><p>40% × ₦350,000</p><div class="step-result">= ₦140,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Share of Dividend</strong><p>40% × ₦80,000</p><div class="step-result">= ₦32,000 (reduces CV)</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Closing CV</strong><p>500,000 + 140,000 − 32,000</p><div class="step-result">= ₦608,000</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-        function showView(viewId) {
-            document.querySelectorAll('[id^="view-"]').forEach(v => v.classList.add('hidden'));
-            document.getElementById(`view-${viewId}`).classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
+/* ═══════════ PARTNERSHIP ═══════════ */
+partnership:()=>shell('partnership','🤝','Partnership Laws & Accounts',
+'Profit appropriation, capital accounts, admission, retirement, and dissolution of partnerships.',
+/* LEARN */`
+<div class="sb"><h2>P&L Appropriation — Key Formula</h2>
+  <div class="fbox">
+Net Profit
+<span class="cm">LESS:</span>  Partners' Salaries            <span class="cm">(if in deed)</span>
+<span class="cm">LESS:</span>  Interest on Capital            <span class="cm">= Capital × Rate</span>
+<span class="cm">ADD:</span>   Interest on Drawings          <span class="cm">= Drawings × Rate × Time</span>
+= <span class="hl">Residual Profit</span> shared in Profit-Sharing Ratio (PSR)</div>
+  <h3>Full Worked Example</h3>
+  <p>Partners: Ade (capital ₦100k, PSR 3) and Bola (capital ₦60k, PSR 2). Net Profit = ₦150,000.<br>
+  Interest on capital: 8% p.a. | Ade's salary: ₦20,000 | Interest on drawings: Ade ₦1,200; Bola ₦800</p>
+  <table class="acc-t">
+    <tr><th>Item</th><th>Ade ₦</th><th>Bola ₦</th><th>Total ₦</th></tr>
+    <tr><td>Net Profit</td><td></td><td></td><td class="dr">150,000</td></tr>
+    <tr><td>Less: Ade's Salary</td><td class="dr">20,000</td><td></td><td class="cr">(20,000)</td></tr>
+    <tr><td>Less: Interest on Capital (Ade: 8%×100k; Bola: 8%×60k)</td><td class="dr">8,000</td><td class="dr">4,800</td><td class="cr">(12,800)</td></tr>
+    <tr><td>Add: Interest on Drawings</td><td class="cr">1,200</td><td class="cr">800</td><td class="dr">2,000</td></tr>
+    <tr><td>Residual Profit</td><td></td><td></td><td class="dr">119,200</td></tr>
+    <tr><td>Share of Residual (3:2)</td><td class="dr">71,520</td><td class="dr">47,680</td><td class="cr">(119,200)</td></tr>
+    <tr class="tot"><td><strong>Total to Each Partner</strong></td><td class="dr"><strong>99,320</strong></td><td class="dr"><strong>51,680</strong></td><td></td></tr>
+  </table>
+</div>
+<div class="sb"><h2>Admission of a New Partner — Goodwill Calculation</h2>
+  <div class="fbox">
+<span class="hl">Sacrificing Ratio</span> = Old Share − New Share
+Goodwill Dr = New Partner's Capital  <span class="cm">(new partner pays in)</span>
+Goodwill Cr = Old Partners in Sacrificing Ratio  <span class="cm">(they receive)</span></div>
+  <h3>Example — Admission</h3>
+  <p>Ade:Bola = 3:2. Chidi admitted for 1/5 share. Goodwill = ₦50,000. New PSR = Ade:Bola:Chidi = 3:2:1 out of 6 (or re-stated 2:2:1 if sacrificed from old).</p>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Old ratio</strong><p>Ade = 3/5, Bola = 2/5</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Chidi's new share = 1/5. Old partners sacrifice equally.</strong><p>Each gives up 1/2 of 1/5 = 1/10. New: Ade = 3/5−1/10 = 5/10, Bola = 2/5−1/10 = 3/10, Chidi = 2/10. Ratio = 5:3:2</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Goodwill journal</strong><p>Dr Chidi's Capital ₦50,000 (or Dr Bank if cash premium); Cr Ade ₦25,000 (1/2); Cr Bola ₦25,000 (1/2)</p><div class="step-result">Sacrificing ratio = 1:1 (equal sacrifice here)</div></div></div>
+  </div>
+</div>
+<div class="sb"><h2>Dissolution — Realisation Account</h2>
+  <div class="fbox">
+<span class="hl">Realisation A/c Dr</span> — All assets at book value (except cash/bank)
+<span class="hl">Realisation A/c Cr</span> — All liabilities at book value
+<span class="hl">Realisation A/c Cr</span> — Proceeds from asset sales
+<span class="hl">Realisation Profit/Loss</span> — Shared in PSR among partners</div>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-p1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>P&L Appropriation Account</h3></div>
+  <div class="ex-data"><strong>Data</strong>
+    Partners: Kemi (PSR 60%) and Dele (PSR 40%). Net Profit = ₦200,000.<br>
+    Capital: Kemi ₦150,000; Dele ₦100,000. Interest on capital: 10% p.a.<br>
+    Kemi's salary: ₦24,000. No interest on drawings.
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Interest on Capital — Kemi (₦)</label><input data-key="p1_ick" placeholder=""></div>
+    <div class="inp-group"><label>Interest on Capital — Dele (₦)</label><input data-key="p1_icd" placeholder=""></div>
+    <div class="inp-group"><label>Residual Profit (₦)</label><input data-key="p1_res" placeholder=""></div>
+    <div class="inp-group"><label>Kemi's total share (salary + IoC + profit share) (₦)</label><input data-key="p1_kt" placeholder=""></div>
+    <div class="inp-group"><label>Dele's total share (₦)</label><input data-key="p1_dt" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('p1',{p1_ick:15000,p1_icd:10000,p1_res:151000,p1_kt:129600,p1_dt:70400})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-p1" onclick="toggleSol('p1')">Show Solution</button>
+  <div class="ex-fb" id="fb-p1"></div>
+  <div class="sol-panel" id="sol-p1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Interest on Capital</strong><p>Kemi: 10% × 150,000 | Dele: 10% × 100,000</p><div class="step-result">Kemi = ₦15,000 | Dele = ₦10,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Residual Profit</strong><p>200,000 − 24,000 (salary) − 15,000 − 10,000</p><div class="step-result">= ₦151,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Profit shares</strong><p>Kemi: 60% × 151,000 = ₦90,600 | Dele: 40% × 151,000 = ₦60,400</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Totals</strong><p>Kemi: 24,000 + 15,000 + 90,600 | Dele: 10,000 + 60,400</p><div class="step-result">Kemi = ₦129,600 | Dele = ₦70,400</div></div></div>
+    </div>
+  </div>
+</div>
+<div class="ex-box" id="ex-p2">
+  <div class="ex-hd"><span class="ex-num">Ex 2</span><h3>Admission — Goodwill & New PSR</h3></div>
+  <div class="ex-data"><strong>Data</strong>
+    Ali and Ben share profits 2:1. Chidi is admitted for 1/4 share. Goodwill valued at ₦120,000.<br>
+    Chidi's capital introduced: ₦80,000. Old partners sacrifice in their old ratio.
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Ali's goodwill credit (₦)</label><input data-key="p2_ag" placeholder=""></div>
+    <div class="inp-group"><label>Ben's goodwill credit (₦)</label><input data-key="p2_bg" placeholder=""></div>
+    <div class="inp-group"><label>Chidi's goodwill debit (₦)</label><input data-key="p2_cg" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('p2',{p2_ag:80000,p2_bg:40000,p2_cg:120000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-p2" onclick="toggleSol('p2')">Show Solution</button>
+  <div class="ex-fb" id="fb-p2"></div>
+  <div class="sol-panel" id="sol-p2">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Old PSR:</strong><p>Ali 2/3, Ben 1/3. Sacrificing ratio = old PSR = 2:1</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Goodwill credits</strong><p>Ali: 2/3 × 120,000 | Ben: 1/3 × 120,000</p><div class="step-result">Ali = ₦80,000 | Ben = ₦40,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Chidi pays goodwill</strong><p>Dr Chidi's Capital / Cash ₦120,000 (full goodwill)</p><div class="step-result">Chidi's goodwill debit = ₦120,000</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-        function checkPractice(topicId, questionIdx, optionIdx) {
-            const data = TOPIC_DATA[topicId];
-            const q = data.exercises[questionIdx];
-            const container = document.getElementById(`q-${questionIdx}`);
-            const buttons = container.querySelectorAll('.option-btn');
-            const feedback = document.getElementById(`feedback-${questionIdx}`);
+/* ═══════════ CONTRACTS ═══════════ */
+contracts:()=>shell('contracts','📋','Accounting for Contracts',
+'Long-term contract revenue recognition under IFRS 15 — stage of completion, WIP, foreseeable losses.',
+/* LEARN */`
+<div class="sb"><h2>IFRS 15 — Percentage of Completion</h2>
+  <div class="fbox">
+<span class="hl">Stage of Completion (%)</span> = Costs to Date ÷ Total Estimated Costs × 100
 
-            buttons.forEach(btn => btn.classList.remove('correct', 'wrong', 'ring-2', 'ring-indigo-500'));
-            
-            if (optionIdx === q.correct) {
-                buttons[optionIdx].classList.add('correct');
-                feedback.innerHTML = `<div class="p-3 bg-emerald-50 text-emerald-700 rounded-lg text-sm font-medium flex items-center gap-2">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> Correct! ${q.explain}
-                </div>`;
-            } else {
-                buttons[optionIdx].classList.add('wrong');
-                feedback.innerHTML = `<div class="p-3 bg-rose-50 text-rose-700 rounded-lg text-sm font-medium flex items-center gap-2">
-                    <i data-lucide="alert-circle" class="w-4 h-4"></i> Incorrect. ${q.explain}
-                </div>`;
-            }
-            lucide.createIcons();
-        }
+<span class="hl">Cumulative Revenue</span>  = Contract Price × Stage of Completion
+<span class="hl">Cumulative Costs</span>    = Costs incurred to date
+<span class="hl">Cumulative Profit</span>   = Cumulative Revenue − Cumulative Costs
 
-        function openTopic(topicId) {
-            const data = TOPIC_DATA[topicId];
-            if (!data) return;
+<span class="cm">For CURRENT YEAR figures, deduct prior cumulative amounts:</span>
+<span class="hl">Revenue this year</span>   = Cumulative Revenue − Prior Cumulative Revenue
+<span class="hl">Costs this year</span>     = Costs incurred this year (actual)
+<span class="hl">Profit this year</span>    = Revenue this year − Costs this year</div>
+  <h3>Full 3-Year Worked Example</h3>
+  <p><strong>Contract: Price ₦1,500,000 | Estimated Total Cost ₦1,000,000</strong></p>
+  <table class="acc-t">
+    <tr><th>Item</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+    <tr><td>Costs to Date</td><td>200,000</td><td>650,000</td><td>1,000,000</td></tr>
+    <tr><td>Stage of Completion</td><td>20%</td><td>65%</td><td>100%</td></tr>
+    <tr><td>Cumulative Revenue</td><td class="dr">300,000</td><td class="dr">975,000</td><td class="dr">1,500,000</td></tr>
+    <tr><td>Revenue This Year</td><td class="dr">300,000</td><td class="dr">675,000</td><td class="dr">525,000</td></tr>
+    <tr><td>Costs This Year</td><td class="cr">200,000</td><td class="cr">450,000</td><td class="cr">350,000</td></tr>
+    <tr class="tot"><td><strong>Profit This Year</strong></td><td class="dr"><strong>100,000</strong></td><td class="dr"><strong>225,000</strong></td><td class="dr"><strong>175,000</strong></td></tr>
+  </table>
+</div>
+<div class="sb"><h2>Foreseeable Loss</h2>
+  <div class="fbox">
+If  Total Estimated Costs &gt; Contract Price  →  <span class="hl">Foreseeable Loss</span>
+Expected Loss = Total Estimated Costs − Contract Price
+<span class="hl">ENTIRE loss recognised immediately</span> in P&L (prudence concept)
+Loss already recognised in prior years is deducted first</div>
+  <h3>Example — Loss Contract</h3>
+  <p>Price ₦500,000 | Revised estimated cost ₦620,000 | Costs to date ₦310,000 (Year 2)</p>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Stage of completion</strong><p>310,000 ÷ 620,000</p><div class="step-result">= 50%</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Total foreseeable loss</strong><p>620,000 − 500,000</p><div class="step-result">= ₦120,000 — RECOGNISE IN FULL</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Revenue Year 2</strong><p>500,000 × 50% = ₦250,000</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Costs Year 2</strong><p>₦310,000 (actual) + ₦120,000 (provision for full loss)</p><div class="step-result">Loss this year = Revenue ₦250k − Costs ₦430k = (₦180,000)</div></div></div>
+  </div>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-c1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>Percentage of Completion — 2 Years</h3></div>
+  <div class="ex-data"><strong>Data</strong>
+    Contract price: ₦2,000,000. Estimated total cost: ₦1,400,000.<br>
+    Year 1 costs incurred: ₦420,000 | Year 2 cumulative costs: ₦980,000
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Year 1 — Stage of Completion (%)</label><input data-key="c1_s1" placeholder="e.g. 30"></div>
+    <div class="inp-group"><label>Year 1 — Revenue recognised (₦)</label><input data-key="c1_r1" placeholder=""></div>
+    <div class="inp-group"><label>Year 1 — Gross Profit (₦)</label><input data-key="c1_gp1" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Stage of Completion (%)</label><input data-key="c1_s2" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Revenue this year (₦)</label><input data-key="c1_r2" placeholder=""></div>
+    <div class="inp-group"><label>Year 2 — Gross Profit this year (₦)</label><input data-key="c1_gp2" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('c1',{c1_s1:30,c1_r1:600000,c1_gp1:180000,c1_s2:70,c1_r2:800000,c1_gp2:240000},100)">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-c1" onclick="toggleSol('c1')">Show Solution</button>
+  <div class="ex-fb" id="fb-c1"></div>
+  <div class="sol-panel" id="sol-c1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Year 1 Stage</strong><p>420,000 ÷ 1,400,000</p><div class="step-result">= 30%</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Year 1 Revenue</strong><p>2,000,000 × 30%</p><div class="step-result">= ₦600,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Year 1 Gross Profit</strong><p>600,000 − 420,000</p><div class="step-result">= ₦180,000</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Year 2 Stage</strong><p>980,000 ÷ 1,400,000</p><div class="step-result">= 70%</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Year 2 Revenue this year</strong><p>Cumulative: 2,000,000×70% = ₦1,400,000. Less Year 1: ₦600,000</p><div class="step-result">= ₦800,000</div></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><strong>Year 2 Gross Profit</strong><p>Costs this year: 980,000−420,000 = ₦560,000. Profit = 800,000−560,000</p><div class="step-result">= ₦240,000</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-            let exercisesHtml = '';
-            if (data.exercises) {
-                exercisesHtml = `
-                    <div class="mt-16 pt-8 border-t border-slate-100">
-                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-2 text-indigo-900">
-                            <i data-lucide="pencil-line" class="text-indigo-600"></i> Practice Zone
-                        </h3>
-                        <div class="space-y-8">
-                            ${data.exercises.map((ex, i) => `
-                                <div id="q-${i}" class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                                    <p class="font-bold text-slate-800 mb-4">${i+1}. ${ex.q}</p>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                                        ${ex.options.map((opt, idx) => `
-                                            <button onclick="checkPractice('${topicId}', ${i}, ${idx})" class="option-btn text-left p-3 border border-slate-300 rounded-xl transition-all text-sm font-medium bg-white">
-                                                ${opt}
-                                            </button>
-                                        `).join('')}
-                                    </div>
-                                    <div id="feedback-${i}"></div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
+/* ═══════════ GOODWILL ═══════════ */
+goodwill:()=>shell('goodwill','✨','Account for Goodwill',
+'Valuation methods for goodwill — average profits, super profits, capitalisation — and IFRS 3 treatment.',
+/* LEARN */`
+<div class="sb"><h2>Goodwill Valuation Methods</h2>
+  <div class="fbox">
+<span class="cm">Method 1: Average Profits</span>
+<span class="hl">Goodwill</span> = Average Annual Profit × Years' Purchase
 
-            document.getElementById('lesson-content').innerHTML = `
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-                    <h1 class="text-4xl font-black text-slate-900">${data.title}</h1>
-                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest self-start">2nd Year Expert</span>
-                </div>
+<span class="cm">Method 2: Super-Profits</span>
+<span class="hl">Normal Profit</span>  = Capital Employed × Normal Rate of Return
+<span class="hl">Super Profit</span>   = Actual Average Profit − Normal Profit
+<span class="hl">Goodwill</span>       = Super Profit × Years' Purchase
 
-                <div class="mb-10">
-                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <i data-lucide="play-circle" class="text-red-500"></i> Video Demonstration
-                    </h3>
-                    <div class="video-container shadow-2xl">
-                        <iframe src="${data.video}" allowfullscreen></iframe>
-                    </div>
-                </div>
+<span class="cm">Method 3: Capitalisation of Super-Profits</span>
+<span class="hl">Goodwill</span>       = Super Profit ÷ Normal Rate of Return × 100
 
-                <div class="space-y-8">
-                    ${data.content}
-                </div>
+<span class="cm">Method 4: Capitalisation of Average Profits</span>
+<span class="hl">Capitalised Value</span> = Average Profit ÷ Normal Rate × 100
+<span class="hl">Goodwill</span>           = Capitalised Value − Capital Employed</div>
+</div>
+<div class="sb"><h2>Worked Examples</h2>
+  <h3>Data: Capital Employed = ₦600,000 | Normal Return = 12% | Avg Profit = ₦96,000 | Years' Purchase = 4</h3>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Method 1 — Average Profits</strong><p>96,000 × 4 years</p><div class="step-result">Goodwill = ₦384,000</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Method 2 — Super Profits</strong><p>Normal = 600,000 × 12% = ₦72,000. Super Profit = 96,000 − 72,000 = ₦24,000. Goodwill = 24,000 × 4</p><div class="step-result">Goodwill = ₦96,000</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Method 3 — Capitalisation</strong><p>Super Profit ÷ Rate = 24,000 ÷ 0.12</p><div class="step-result">Goodwill = ₦200,000</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Method 4 — Capitalised Avg Profit</strong><p>Capitalised Value = 96,000 ÷ 0.12 = ₦800,000. Goodwill = 800,000 − 600,000</p><div class="step-result">Goodwill = ₦200,000</div></div></div>
+  </div>
+  <div class="callout rust"><strong>Note</strong><p>Different methods give different values! Exams usually specify which method to use. Super-profits method is most commonly tested.</p></div>
+</div>
+<div class="sb"><h2>IFRS 3 — Purchased Goodwill</h2>
+  <div class="fbox">
+<span class="hl">Goodwill (IFRS 3)</span> = Purchase Consideration − FV of Net Identifiable Assets
+Net Identifiable Assets = Identified Assets (at FV) − Identified Liabilities (at FV)
 
-                ${exercisesHtml}
+If result is <span class="hl">negative</span> → Bargain purchase → Recognise gain in P&L immediately</div>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-g1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>Super-Profits Method</h3></div>
+  <div class="ex-data"><strong>Data</strong>
+    Capital Employed: ₦800,000 | Normal Rate of Return: 15%<br>
+    Profits: Year 1=₦140,000 | Year 2=₦160,000 | Year 3=₦120,000 | Year 4=₦180,000<br>
+    Years' Purchase: 3
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Average Profit (₦)</label><input data-key="g1_ap" placeholder=""></div>
+    <div class="inp-group"><label>Normal Profit (₦)</label><input data-key="g1_np" placeholder=""></div>
+    <div class="inp-group"><label>Super Profit (₦)</label><input data-key="g1_sp" placeholder=""></div>
+    <div class="inp-group"><label>Goodwill (Super-Profits method) (₦)</label><input data-key="g1_gw" placeholder=""></div>
+    <div class="inp-group"><label>Goodwill (Capitalisation method) (₦)</label><input data-key="g1_gwc" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('g1',{g1_ap:150000,g1_np:120000,g1_sp:30000,g1_gw:90000,g1_gwc:200000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-g1" onclick="toggleSol('g1')">Show Solution</button>
+  <div class="ex-fb" id="fb-g1"></div>
+  <div class="sol-panel" id="sol-g1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Average Profit</strong><p>(140,000+160,000+120,000+180,000) ÷ 4</p><div class="step-result">= ₦150,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Normal Profit</strong><p>800,000 × 15%</p><div class="step-result">= ₦120,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Super Profit</strong><p>150,000 − 120,000</p><div class="step-result">= ₦30,000</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Super-Profits Method</strong><p>30,000 × 3 years</p><div class="step-result">= ₦90,000</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Capitalisation Method</strong><p>30,000 ÷ 0.15</p><div class="step-result">= ₦200,000</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-                <div class="mt-12 p-8 bg-indigo-600 rounded-3xl text-white text-center shadow-xl">
-                    <i data-lucide="help-circle" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
-                    <h4 class="text-xl font-bold mb-2">Still having trouble with the math?</h4>
-                    <p class="text-indigo-100 text-sm mb-6">Our AI Tutor can solve your specific textbook problems instantly.</p>
-                    <button onclick="showView('tutor')" class="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-indigo-50 transition-all">
-                        Open AI Tutor
-                    </button>
-                </div>
-            `;
-            lucide.createIcons();
-            showView('lesson');
-        }
+/* ═══════════ COMPANY ═══════════ */
+company:()=>shell('company','🏢','Company Accounts',
+'Share capital, debentures, reserves, and company financial statements under CAMA and IFRS.',
+/* LEARN */`
+<div class="sb"><h2>Key Share Capital Calculations</h2>
+  <div class="fbox">
+<span class="hl">Share Premium</span>     = (Issue Price − Par Value) × Number of Shares Issued
+<span class="hl">Calls in Arrear</span>   = Called-up Capital − Paid-up Capital
+<span class="hl">Calls in Advance</span>  = Cash received before call is made
 
-        async function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const container = document.getElementById('chat-messages');
-            const text = input.value.trim();
-            if (!text) return;
+<span class="cm">Bonus (Capitalisation) Issue:</span>
+<span class="hl">Shares Issued</span>     = Retained Earnings / Reserve Used ÷ Par Value
+Dr Retained Earnings/Share Premium | Cr Share Capital
 
-            container.innerHTML += `<div class="flex justify-end"><div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm shadow-md">${text}</div></div>`;
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
+<span class="cm">Rights Issue:</span>
+<span class="hl">New Shares</span>        = Old shares × Rights ratio
+<span class="hl">Cash Raised</span>       = New shares × Rights Issue Price</div>
+  <h3>Worked Example — Share Issue</h3>
+  <p>ABC Ltd issues 500,000 shares of ₦1 par at ₦3.50 per share. 20,000 shares' call-in-arrear on final call of ₦1.</p>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Share Capital raised</strong><p>500,000 × ₦1 par</p><div class="step-result">= ₦500,000</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Share Premium raised</strong><p>500,000 × (₦3.50 − ₦1.00)</p><div class="step-result">= ₦1,250,000</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Calls in Arrear</strong><p>20,000 × ₦1 final call unpaid</p><div class="step-result">= ₦20,000 (deducted from Paid-up Capital)</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Paid-up Capital</strong><p>Called-up = ₦500,000; Less calls in arrear ₦20,000</p><div class="step-result">= ₦480,000</div></div></div>
+  </div>
+</div>
+<div class="sb"><h2>Debenture Interest Calculation</h2>
+  <div class="fbox">
+<span class="hl">Debenture Interest</span> = Face Value of Debentures × Coupon Rate
+This is an <span class="hl">expense</span> in P&L — NOT an appropriation.
+Tax is calculated AFTER deducting debenture interest.</div>
+  <h3>Final Accounts Format (Company)</h3>
+  <table class="acc-t">
+    <tr><th>Statement of P&L (abridged)</th><th>₦</th></tr>
+    <tr><td>Revenue</td><td class="dr">2,000,000</td></tr>
+    <tr><td>Cost of Sales</td><td class="cr">(1,200,000)</td></tr>
+    <tr><td>Gross Profit</td><td>800,000</td></tr>
+    <tr><td>Operating Expenses</td><td class="cr">(250,000)</td></tr>
+    <tr><td>Debenture Interest (12% × ₦500,000)</td><td class="cr">(60,000)</td></tr>
+    <tr><td>Profit Before Tax</td><td>490,000</td></tr>
+    <tr><td>Company Income Tax (30%)</td><td class="cr">(147,000)</td></tr>
+    <tr class="tot"><td><strong>Profit After Tax</strong></td><td class="dr"><strong>343,000</strong></td></tr>
+  </table>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-co1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>Share Capital & Premium Calculation</h3></div>
+  <div class="ex-data"><strong>Data</strong>
+    XYZ Plc issues 1,000,000 ordinary shares of ₦0.50 par value at ₦2.20 each.<br>
+    50,000 shares have calls in arrear on the final call of ₦0.70 per share.
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Share Capital (Called-up) (₦)</label><input data-key="co1_sc" placeholder=""></div>
+    <div class="inp-group"><label>Share Premium Account (₦)</label><input data-key="co1_sp" placeholder=""></div>
+    <div class="inp-group"><label>Calls in Arrear (₦)</label><input data-key="co1_cia" placeholder=""></div>
+    <div class="inp-group"><label>Paid-up Share Capital (₦)</label><input data-key="co1_pu" placeholder=""></div>
+    <div class="inp-group"><label>Total Cash Received (₦)</label><input data-key="co1_cash" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('co1',{co1_sc:500000,co1_sp:1700000,co1_cia:35000,co1_pu:465000,co1_cash:2165000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-co1" onclick="toggleSol('co1')">Show Solution</button>
+  <div class="ex-fb" id="fb-co1"></div>
+  <div class="sol-panel" id="sol-co1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Share Capital (called-up)</strong><p>1,000,000 × ₦0.50 par</p><div class="step-result">= ₦500,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Share Premium</strong><p>1,000,000 × (₦2.20 − ₦0.50)</p><div class="step-result">= 1,000,000 × ₦1.70 = ₦1,700,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Calls in Arrear</strong><p>50,000 × ₦0.70 (final call portion)</p><div class="step-result">= ₦35,000</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Paid-up Capital</strong><p>₦500,000 − ₦35,000</p><div class="step-result">= ₦465,000</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Total Cash</strong><p>Total issue value − calls in arrear = (1,000,000 × ₦2.20) − ₦35,000</p><div class="step-result">= ₦2,200,000 − ₦35,000 = ₦2,165,000</div></div></div>
+    </div>
+  </div>
+</div>`),
 
-            const loadingId = 'loading-' + Date.now();
-            container.innerHTML += `<div id="${loadingId}" class="flex justify-start"><div class="bg-slate-100 p-4 rounded-2xl animate-pulse text-xs text-slate-400">Tutor is calculating...</div></div>`;
-            container.scrollTop = container.scrollHeight;
+/* ═══════════ INVENTORY ═══════════ */
+inventory:()=>shell('inventory','📦','Inventory Accounts',
+'IAS 2 inventory valuation, FIFO and AVCO cost flow methods, NRV write-downs, and COGS calculations.',
+/* LEARN */`
+<div class="sb"><h2>IAS 2 — Core Measurement</h2>
+  <div class="fbox">
+<span class="hl">Measurement</span>   = Lower of COST and NRV
 
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `You are an expert accounting professor. A student is asking: ${text}. Show step-by-step math or T-account formats for 2nd-year university level.` }] }],
-                        systemInstruction: { parts: [{ text: "Format calculations using Markdown tables. Be extremely precise." }] }
-                    })
-                });
+<span class="hl">Cost</span>           = Purchase price
+                + Import duties + Freight-in
+                − Trade discounts
+                + Direct conversion costs
 
-                const data = await response.json();
-                const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble with my ledger. Please try again.";
-                
-                document.getElementById(loadingId).remove();
-                container.innerHTML += `<div class="flex justify-start"><div class="bg-slate-100 p-4 rounded-2xl rounded-tl-none max-w-[90%] text-sm whitespace-pre-wrap text-slate-800 leading-relaxed border border-slate-200">${aiResponse}</div></div>`;
-            } catch (error) {
-                document.getElementById(loadingId).remove();
-                container.innerHTML += `<div class="text-center text-rose-500 text-xs py-2 font-medium">Network Error. Check your connection.</div>`;
-            }
-            container.scrollTop = container.scrollHeight;
-        }
+<span class="hl">NRV</span>           = Estimated selling price
+                − Estimated costs to complete
+                − Estimated selling costs
 
-        document.getElementById('chat-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-    </script>
+Write-down = Cost − NRV  <span class="cm">(if NRV &lt; Cost → expense immediately)</span></div>
+</div>
+<div class="sb"><h2>FIFO — First-In, First-Out</h2>
+  <p>Oldest units sold first. In rising prices → lower COGS → higher profit → higher closing stock.</p>
+  <h3>Full Example</h3>
+  <p>Jan 1: Opening 100 units @ ₦10. Jan 10: Buy 200 @ ₦14. Jan 20: Buy 150 @ ₦16. Sell 350 units total.</p>
+  <table class="acc-t">
+    <tr><th>Units Sold (FIFO)</th><th>Units</th><th>Cost/unit</th><th>Total Cost</th></tr>
+    <tr><td>From opening stock</td><td>100</td><td>₦10</td><td class="cr">1,000</td></tr>
+    <tr><td>From Jan 10 purchase</td><td>200</td><td>₦14</td><td class="cr">2,800</td></tr>
+    <tr><td>From Jan 20 purchase</td><td>50</td><td>₦16</td><td class="cr">800</td></tr>
+    <tr class="tot"><td><strong>COGS</strong></td><td><strong>350</strong></td><td></td><td class="cr"><strong>4,600</strong></td></tr>
+  </table>
+  <p>Closing stock: 100 units @ ₦16 = <strong>₦1,600</strong></p>
+</div>
+<div class="sb"><h2>AVCO — Weighted Average Cost</h2>
+  <div class="fbox">
+<span class="hl">New AVCO</span> = (Units in Stock × Old AVCO + New Units × New Price) ÷ Total Units
+<span class="hl">COGS</span>     = Units Sold × AVCO at time of sale
+<span class="hl">Closing Stock</span> = Remaining Units × AVCO</div>
+  <h3>Example (Perpetual AVCO)</h3>
+  <p>Same data as FIFO above:</p>
+  <div class="calc-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>After Jan 10 purchase</strong><p>AVCO = (100×10 + 200×14) ÷ 300 = (1,000+2,800)÷300</p><div class="step-result">= ₦12.67/unit</div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>After Jan 20 purchase</strong><p>AVCO = (300×12.67 + 150×16) ÷ 450 = (3,800+2,400)÷450</p><div class="step-result">= ₦13.78/unit</div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>COGS (350 units at new AVCO)</strong><p>350 × ₦13.78</p><div class="step-result">COGS ≈ ₦4,822</div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Closing Stock (100 units)</strong><p>100 × ₦13.78</p><div class="step-result">= ₦1,378</div></div></div>
+  </div>
+</div>
+<div class="sb"><h2>COGS Formula (Periodic System)</h2>
+  <div class="fbox">
+<span class="hl">COGS</span> = Opening Inventory
+        + Purchases
+        + Carriage Inwards
+        − Purchase Returns
+        − Closing Inventory</div>
+</div>`,
+/* PRACTICE */`
+<div class="ex-box" id="ex-inv1">
+  <div class="ex-hd"><span class="ex-num">Ex 1</span><h3>FIFO Calculation</h3></div>
+  <div class="ex-data"><strong>Transactions</strong>
+    Jan 1: Opening stock 50 units @ ₦20 | Jan 8: Purchase 120 units @ ₦25 | Jan 15: Purchase 80 units @ ₦28<br>
+    Sales: Jan 20 — 180 units sold.
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>FIFO — Units from opening stock</label><input data-key="inv_fu1" placeholder=""></div>
+    <div class="inp-group"><label>FIFO — Units from Jan 8 purchase</label><input data-key="inv_fu2" placeholder=""></div>
+    <div class="inp-group"><label>FIFO — COGS (₦)</label><input data-key="inv_fcogs" placeholder=""></div>
+    <div class="inp-group"><label>FIFO — Closing Stock units</label><input data-key="inv_fcs_u" placeholder=""></div>
+    <div class="inp-group"><label>FIFO — Closing Stock value (₦)</label><input data-key="inv_fcs_v" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('inv1',{inv_fu1:50,inv_fu2:130,inv_fcogs:4250,inv_fcs_u:70,inv_fcs_v:1960})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-inv1" onclick="toggleSol('inv1')">Show Solution</button>
+  <div class="ex-fb" id="fb-inv1"></div>
+  <div class="sol-panel" id="sol-inv1">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Total available units</strong><p>50 + 120 + 80 = 250. Sell 180. Remaining = 70.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>FIFO — units sold from opening</strong><p>50 units (all opening stock sold first)</p><div class="step-result">Cost: 50 × ₦20 = ₦1,000</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>FIFO — remaining 130 from Jan 8</strong><p>180 − 50 = 130 more units needed from Jan 8 batch (all 120? No — 130 > 120). Wait: Jan 8 = 120 units. 50+120=170. Still need 10 more from Jan 15.</p><div class="step-result">Correction: 50 (opening) + 120 (Jan8) + 10 (Jan15). COGS = 1,000 + 3,000 + 280 = ₦4,280</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Closing Stock</strong><p>70 units from Jan 15 @ ₦28</p><div class="step-result">= ₦1,960</div></div></div>
+    </div>
+  </div>
+</div>
+<div class="ex-box" id="ex-inv2">
+  <div class="ex-hd"><span class="ex-num">Ex 2</span><h3>NRV Write-Down</h3></div>
+  <div class="ex-data"><strong>Data</strong>
+    Product A: Cost ₦45,000 | Expected selling price ₦60,000 | Selling costs ₦8,000<br>
+    Product B: Cost ₦30,000 | Expected selling price ₦35,000 | Costs to complete ₦7,000 | Selling costs ₦3,000<br>
+    Product C: Cost ₦22,000 | Expected selling price ₦28,000 | Selling costs ₦4,500
+  </div>
+  <div class="inp-row">
+    <div class="inp-group"><label>Product A — NRV (₦)</label><input data-key="nrv_a" placeholder=""></div>
+    <div class="inp-group"><label>Product A — Inventory Value (IAS 2) (₦)</label><input data-key="val_a" placeholder=""></div>
+    <div class="inp-group"><label>Product B — NRV (₦)</label><input data-key="nrv_b" placeholder=""></div>
+    <div class="inp-group"><label>Product B — Inventory Value (IAS 2) (₦)</label><input data-key="val_b" placeholder=""></div>
+    <div class="inp-group"><label>Product C — NRV (₦)</label><input data-key="nrv_c" placeholder=""></div>
+    <div class="inp-group"><label>Product C — Inventory Value (IAS 2) (₦)</label><input data-key="val_c" placeholder=""></div>
+    <div class="inp-group"><label>Total Inventory on Balance Sheet (₦)</label><input data-key="total_inv" placeholder=""></div>
+  </div>
+  <button class="btn-check" onclick="checkEx('inv2',{nrv_a:52000,val_a:45000,nrv_b:25000,val_b:25000,nrv_c:23500,val_c:22000,total_inv:92000})">Check Answers</button>
+  <button class="btn-reveal" id="sbtn-inv2" onclick="toggleSol('inv2')">Show Solution</button>
+  <div class="ex-fb" id="fb-inv2"></div>
+  <div class="sol-panel" id="sol-inv2">
+    <div class="calc-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Product A NRV</strong><p>60,000 − 8,000 = ₦52,000 &gt; Cost ₦45,000. Use cost.</p><div class="step-result">Value = ₦45,000</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Product B NRV</strong><p>35,000 − 7,000 − 3,000 = ₦25,000 &lt; Cost ₦30,000. Write down!</p><div class="step-result">Value = NRV = ₦25,000 (write-down = ₦5,000)</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Product C NRV</strong><p>28,000 − 4,500 = ₦23,500 &gt; Cost ₦22,000. Use cost.</p><div class="step-result">Value = ₦22,000</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Total Inventory</strong><p>45,000 + 25,000 + 22,000</p><div class="step-result">= ₦92,000</div></div></div>
+    </div>
+  </div>
+</div>`)
+
+}; // end PAGES
+
+/* ================================================================
+   INIT
+   ================================================================ */
+window.addEventListener('DOMContentLoaded',()=>{
+  updateProg();
+  TOPICS.forEach(t=>{ if(S.done[t]) addBadge(t); });
+  show('home');
+  document.addEventListener('click',e=>{
+    const sb=document.getElementById('sidebar');
+    if(window.innerWidth<768&&sb.classList.contains('open')&&!sb.contains(e.target)&&!e.target.closest('.hamburger'))
+      sb.classList.remove('open');
+  });
+});
+</script>
 </body>
 </html>
