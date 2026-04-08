@@ -18,6 +18,9 @@
         .calc-table th { background-color: #f8fafc; font-weight: 700; }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #000; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .option-btn:hover { background-color: #f1f5f9; border-color: #6366f1; }
+        .option-btn.correct { background-color: #ecfdf5; border-color: #10b981; color: #065f46; }
+        .option-btn.wrong { background-color: #fef2f2; border-color: #ef4444; color: #991b1b; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen">
@@ -46,7 +49,7 @@
         <div id="view-dashboard" class="space-y-8 animate-in fade-in duration-500">
             <header>
                 <h1 class="text-3xl font-extrabold text-slate-900">2nd Year Accounting Portal</h1>
-                <p class="text-slate-500 mt-1">Mastering Specialized Accounts with Numerical Demonstrations.</p>
+                <p class="text-slate-500 mt-1">Mastering Specialized Accounts with Numerical Demonstrations & Practice.</p>
             </header>
 
             <!-- Topic Grid -->
@@ -152,18 +155,15 @@
         const TOPIC_DATA = {
             royalty: {
                 title: "Royalty Accounts",
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder - Replace with actual educational video
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-amber-700">Calculation: The Royalty Analysis Table</h2>
                         <p>To solve any royalty problem, you must first prepare an Analysis Table to track short-workings and recoupment.</p>
-                        
                         <div class="overflow-x-auto my-6">
                             <table class="calc-table w-full">
                                 <thead>
-                                    <tr>
-                                        <th>Year</th><th>Output</th><th>Actual Royalty</th><th>Min. Rent</th><th>Short-workings</th><th>Recoupment</th><th>Payment</th>
-                                    </tr>
+                                    <tr><th>Year</th><th>Output</th><th>Actual Royalty</th><th>Min. Rent</th><th>Short-workings</th><th>Recoupment</th><th>Payment</th></tr>
                                 </thead>
                                 <tbody>
                                     <tr><td>1</td><td>1,000</td><td>$500</td><td>$1,000</td><td>$500</td><td>-</td><td>$1,000</td></tr>
@@ -171,14 +171,20 @@
                                 </tbody>
                             </table>
                         </div>
-
                         <h3 class="text-xl font-bold mt-8">Example Problem:</h3>
                         <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-amber-500 italic text-sm">
                             "A lease specifies a royalty of $0.50 per ton with a Minimum Rent of $1,000. Output in Year 1 was 1,000 tons. Calculate Short-workings."
                         </div>
-                        <p class="mt-4"><strong>Solution:</strong> Actual Royalty = 1,000 tons × $0.50 = $500. Since $500 < $1,000 (Min Rent), Short-working = $500.</p>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "If Actual Royalty is $800 and Minimum Rent is $1,200, what is the amount of Short-workings?",
+                        options: ["$2,000", "$400", "$800", "Zero"],
+                        correct: 1,
+                        explain: "Short-workings = Minimum Rent ($1,200) - Actual Royalty ($800) = $400."
+                    }
+                ]
             },
             voyage: {
                 title: "Account of Voyage",
@@ -186,17 +192,21 @@
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-blue-700">Voyage Profit Calculation</h2>
-                        <p>The goal is to calculate the Net Profit of a specific ship journey.</p>
-                        
                         <div class="bg-slate-900 text-white p-6 rounded-2xl font-mono text-sm my-6">
                             <div class="flex justify-between border-b border-slate-700 pb-2"><span>Total Freight Income</span><span>$50,000</span></div>
                             <div class="flex justify-between mt-2"><span>(-) Bunker Costs</span><span>($12,000)</span></div>
-                            <div class="flex justify-between"><span>(-) Port Charges</span><span>($5,000)</span></div>
-                            <div class="flex justify-between"><span>(-) Address Commission (2%)</span><span>($1,000)</span></div>
                             <div class="flex justify-between border-t border-slate-700 pt-2 font-bold text-emerald-400"><span>Voyage Profit</span><span>$32,000</span></div>
                         </div>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "Which of the following is typically found on the DEBIT side of a Voyage Account?",
+                        options: ["Freight Inward", "Primage", "Bunker Costs", "Passage Money"],
+                        correct: 2,
+                        explain: "Bunker costs (fuel/coal) are an expense and appear on the debit side. Freight and Passage Money are incomes (credit)."
+                    }
+                ]
             },
             investment: {
                 title: "Investment Accounts",
@@ -204,41 +214,43 @@
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-emerald-700">Cum-Interest Calculation</h2>
-                        <p>When interest is included in the price, we must extract it to find the true Capital Cost.</p>
-                        
                         <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 my-6">
                             <h4 class="font-bold">Scenario:</h4>
                             <p class="text-sm italic">Bought $10,000 12% Debentures at $105 Cum-interest on June 1st. Last interest paid March 31st.</p>
-                            
                             <ul class="mt-4 space-y-2 text-sm">
-                                <li><strong>1. Accrued Interest:</strong> $10,000 × 12% × 2/12 (April, May) = <strong>$200</strong></li>
+                                <li><strong>1. Accrued Interest:</strong> $10,000 × 12% × 2/12 = <strong>$200</strong></li>
                                 <li><strong>2. Total Price Paid:</strong> 100 units × $105 = <strong>$10,500</strong></li>
                                 <li><strong>3. Capital Cost:</strong> $10,500 - $200 = <strong>$10,300</strong></li>
                             </ul>
                         </div>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "In an Ex-Interest purchase, the quoted price reflects:",
+                        options: ["The capital cost only", "Capital cost + Accrued interest", "The face value only", "Market value + Commissions"],
+                        correct: 0,
+                        explain: "In Ex-interest, the price quoted is purely for the principal (capital). Interest is calculated and paid extra."
+                    }
+                ]
             },
             partnership: {
                 title: "Partnership Laws",
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                 content: `
                     <div class="prose prose-slate max-w-none">
-                        <h2 class="text-2xl font-bold text-purple-700">The Garner vs Murray Rule Math</h2>
-                        <p>When a partner is insolvent and cannot pay their deficiency, solvent partners must cover it.</p>
-                        
-                        <div class="bg-white border rounded-xl overflow-hidden my-6">
-                            <div class="bg-purple-600 text-white p-3 font-bold">Deficiency Allocation</div>
-                            <div class="p-4 space-y-3">
-                                <p class="text-sm">Partner C (Insolvent) Deficiency: <strong>$3,000</strong></p>
-                                <p class="text-sm">Solvent Partners A & B Capital Ratio: <strong>3:2</strong></p>
-                                <hr>
-                                <p class="text-sm"><strong>A's Share:</strong> $3,000 × (3/5) = $1,800</p>
-                                <p class="text-sm"><strong>B's Share:</strong> $3,000 × (2/5) = $1,200</p>
-                            </div>
-                        </div>
+                        <h2 class="text-2xl font-bold text-purple-700">Garner vs Murray Rule Math</h2>
+                        <p>Deficiency of an insolvent partner is borne by solvent partners in their capital ratio.</p>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "Under the Garner vs Murray rule, how should the deficiency of an insolvent partner be shared?",
+                        options: ["Profit sharing ratio", "Equally", "Last agreed capital ratio", "Fixed ratio"],
+                        correct: 2,
+                        explain: "The rule states that the loss arising from insolvency is a capital loss, to be borne in the ratio of solvent partners' capitals."
+                    }
+                ]
             },
             contracts: {
                 title: "Contract Accounting",
@@ -246,17 +258,17 @@
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-rose-700">Notional Profit Calculation</h2>
-                        <div class="p-6 bg-slate-50 border rounded-2xl font-mono text-sm space-y-2">
-                            <p>Value of Work Certified: $200,000</p>
-                            <p>Cost of Work Uncertified: $10,000</p>
-                            <p>(-) Total Cost to Date: ($150,000)</p>
-                            <hr class="border-slate-300">
-                            <p class="font-bold text-indigo-600">NOTIONAL PROFIT: $60,000</p>
-                        </div>
-                        <h4 class="font-bold mt-6">Profit taken to P&L:</h4>
-                        <p class="text-sm">If work is > 50% complete: 2/3 × Notional Profit × (Cash Received / Work Certified)</p>
+                        <p>Notional Profit = (Work Certified + Work Uncertified) - Total Cost to Date.</p>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "If Work Certified is $100,000, Work Uncertified is $5,000, and Cost to date is $80,000, what is the Notional Profit?",
+                        options: ["$20,000", "$25,000", "$15,000", "$105,000"],
+                        correct: 1,
+                        explain: "($100,000 + $5,000) - $80,000 = $25,000."
+                    }
+                ]
             },
             goodwill: {
                 title: "Accounting for Goodwill",
@@ -264,19 +276,17 @@
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-indigo-700">Super Profit Method Example</h2>
-                        <div class="space-y-4">
-                            <div class="flex justify-between p-3 border-b"><span>Average Annual Profit</span><span>$40,000</span></div>
-                            <div class="flex justify-between p-3 border-b"><span>Normal Rate of Return</span><span>10%</span></div>
-                            <div class="flex justify-between p-3 border-b"><span>Capital Employed</span><span>$300,000</span></div>
-                            
-                            <div class="bg-indigo-50 p-4 rounded-xl mt-4 space-y-2">
-                                <p><strong>1. Normal Profit:</strong> $300,000 × 10% = $30,000</p>
-                                <p><strong>2. Super Profit:</strong> $40,000 - $30,000 = $10,000</p>
-                                <p><strong>3. Goodwill (3 years purchase):</strong> $10,000 × 3 = <strong>$30,000</strong></p>
-                            </div>
-                        </div>
+                        <p>Super Profit = Average Profit - Normal Profit.</p>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "Normal Profit is calculated as:",
+                        options: ["Total Assets × Interest Rate", "Capital Employed × Normal Rate of Return", "Average Profit / 2", "Total Sales × 10%"],
+                        correct: 1,
+                        explain: "Normal Profit = Capital Employed × (Normal Rate of Return / 100)."
+                    }
+                ]
             },
             company: {
                 title: "Company Accounts",
@@ -284,15 +294,17 @@
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-slate-700">Share Forfeiture Entry</h2>
-                        <p>When a shareholder fails to pay calls, their shares are cancelled.</p>
-                        <div class="bg-slate-900 text-slate-100 p-6 rounded-xl font-mono text-xs">
-                            <p>Share Capital A/c (Called up) ...... Dr. $1,000</p>
-                            <p>&nbsp;&nbsp;To Share Forfeiture A/c (Paid amt) .. $600</p>
-                            <p>&nbsp;&nbsp;To Calls-in-Arrears A/c (Unpaid) .... $400</p>
-                        </div>
-                        <p class="text-xs text-slate-500 mt-2 italic">*Calculation: 100 shares @ $10 each. Only $6 paid per share.</p>
+                        <p>Cancellation of shares due to non-payment of calls.</p>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "On forfeiture of shares, the Share Capital Account is debited with:",
+                        options: ["Face Value", "Called-up Value", "Paid-up Value", "Market Value"],
+                        correct: 1,
+                        explain: "The Share Capital account is always debited with the amount already called up by the company on those shares."
+                    }
+                ]
             },
             inventory: {
                 title: "Inventory Account",
@@ -300,21 +312,17 @@
                 content: `
                     <div class="prose prose-slate max-w-none">
                         <h2 class="text-2xl font-bold text-orange-700">FIFO Stock Ledger</h2>
-                        <div class="overflow-x-auto my-6">
-                            <table class="calc-table w-full">
-                                <thead>
-                                    <tr><th>Date</th><th>Receipts</th><th>Issues</th><th>Balance</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Jan 1</td><td>100 units @ $10</td><td>-</td><td>100 @ $10 ($1000)</td></tr>
-                                    <tr><td>Jan 5</td><td>200 units @ $12</td><td>-</td><td>100 @ $10, 200 @ $12</td></tr>
-                                    <tr><td>Jan 10</td><td>-</td><td>150 units</td><td>150 @ $12 ($1800)</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <p class="text-sm"><strong>Note:</strong> On Jan 10, the 150 units issued used the entire 100 units from Jan 1 first (FIFO), then 50 units from the Jan 5 lot.</p>
+                        <p>Inventory is valued at Cost or Net Realizable Value (NRV), whichever is lower.</p>
                     </div>
-                `
+                `,
+                exercises: [
+                    {
+                        q: "In a period of rising prices (inflation), which method results in a HIGHER closing stock value?",
+                        options: ["LIFO", "FIFO", "Weighted Average", "Simple Average"],
+                        correct: 1,
+                        explain: "FIFO assumes the first items in are the first out, so the closing stock consists of the most recent (more expensive) purchases."
+                    }
+                ]
             }
         };
 
@@ -324,9 +332,58 @@
             window.scrollTo(0, 0);
         }
 
+        function checkPractice(topicId, questionIdx, optionIdx) {
+            const data = TOPIC_DATA[topicId];
+            const q = data.exercises[questionIdx];
+            const container = document.getElementById(`q-${questionIdx}`);
+            const buttons = container.querySelectorAll('.option-btn');
+            const feedback = document.getElementById(`feedback-${questionIdx}`);
+
+            buttons.forEach(btn => btn.classList.remove('correct', 'wrong', 'ring-2', 'ring-indigo-500'));
+            
+            if (optionIdx === q.correct) {
+                buttons[optionIdx].classList.add('correct');
+                feedback.innerHTML = `<div class="p-3 bg-emerald-50 text-emerald-700 rounded-lg text-sm font-medium flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i> Correct! ${q.explain}
+                </div>`;
+            } else {
+                buttons[optionIdx].classList.add('wrong');
+                feedback.innerHTML = `<div class="p-3 bg-rose-50 text-rose-700 rounded-lg text-sm font-medium flex items-center gap-2">
+                    <i data-lucide="alert-circle" class="w-4 h-4"></i> Incorrect. ${q.explain}
+                </div>`;
+            }
+            lucide.createIcons();
+        }
+
         function openTopic(topicId) {
             const data = TOPIC_DATA[topicId];
             if (!data) return;
+
+            let exercisesHtml = '';
+            if (data.exercises) {
+                exercisesHtml = `
+                    <div class="mt-16 pt-8 border-t border-slate-100">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-2 text-indigo-900">
+                            <i data-lucide="pencil-line" class="text-indigo-600"></i> Practice Zone
+                        </h3>
+                        <div class="space-y-8">
+                            ${data.exercises.map((ex, i) => `
+                                <div id="q-${i}" class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                    <p class="font-bold text-slate-800 mb-4">${i+1}. ${ex.q}</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                                        ${ex.options.map((opt, idx) => `
+                                            <button onclick="checkPractice('${topicId}', ${i}, ${idx})" class="option-btn text-left p-3 border border-slate-300 rounded-xl transition-all text-sm font-medium bg-white">
+                                                ${opt}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                    <div id="feedback-${i}"></div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
 
             document.getElementById('lesson-content').innerHTML = `
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
@@ -347,7 +404,9 @@
                     ${data.content}
                 </div>
 
-                <div class="mt-12 p-8 bg-indigo-600 rounded-3xl text-white text-center">
+                ${exercisesHtml}
+
+                <div class="mt-12 p-8 bg-indigo-600 rounded-3xl text-white text-center shadow-xl">
                     <i data-lucide="help-circle" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
                     <h4 class="text-xl font-bold mb-2">Still having trouble with the math?</h4>
                     <p class="text-indigo-100 text-sm mb-6">Our AI Tutor can solve your specific textbook problems instantly.</p>
@@ -366,13 +425,7 @@
             const text = input.value.trim();
             if (!text) return;
 
-            container.innerHTML += `
-                <div class="flex justify-end">
-                    <div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm shadow-md">
-                        ${text}
-                    </div>
-                </div>
-            `;
+            container.innerHTML += `<div class="flex justify-end"><div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm shadow-md">${text}</div></div>`;
             input.value = '';
             container.scrollTop = container.scrollHeight;
 
@@ -385,12 +438,8 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ 
-                            parts: [{ text: `You are an expert accounting professor. A student is asking about: ${text}. 
-                            If it's a calculation, show the step-by-step math. If it's a journal entry, use T-account formatting. 
-                            Explain clearly for a 2nd-year university level.` }] 
-                        }],
-                        systemInstruction: { parts: [{ text: "Format calculations using Markdown tables. Be extremely precise with accounting terminology." }] }
+                        contents: [{ parts: [{ text: `You are an expert accounting professor. A student is asking: ${text}. Show step-by-step math or T-account formats for 2nd-year university level.` }] }],
+                        systemInstruction: { parts: [{ text: "Format calculations using Markdown tables. Be extremely precise." }] }
                     })
                 });
 
@@ -398,13 +447,7 @@
                 const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble with my ledger. Please try again.";
                 
                 document.getElementById(loadingId).remove();
-                container.innerHTML += `
-                    <div class="flex justify-start">
-                        <div class="bg-slate-100 p-4 rounded-2xl rounded-tl-none max-w-[90%] text-sm whitespace-pre-wrap text-slate-800 leading-relaxed border border-slate-200">
-                            ${aiResponse}
-                        </div>
-                    </div>
-                `;
+                container.innerHTML += `<div class="flex justify-start"><div class="bg-slate-100 p-4 rounded-2xl rounded-tl-none max-w-[90%] text-sm whitespace-pre-wrap text-slate-800 leading-relaxed border border-slate-200">${aiResponse}</div></div>`;
             } catch (error) {
                 document.getElementById(loadingId).remove();
                 container.innerHTML += `<div class="text-center text-rose-500 text-xs py-2 font-medium">Network Error. Check your connection.</div>`;
