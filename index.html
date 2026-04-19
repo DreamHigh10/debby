@@ -435,7 +435,7 @@ royalty:()=>shell('royalty','👑','Royalty Accounts',
 <span class="hl">Surplus</span>          = Actual Royalty − Minimum Rent   <span class="cm">(when AR &gt; Min Rent)</span>
 <span class="hl">Recoupment</span>       = Min(Short-working b/f, Surplus)  <span class="cm">(within recoupment period)</span>
 <span class="hl">Payment to Lessor</span> = Min Rent − Recoupment           <span class="cm">(in recoupment year)</span>
-                    OR Actual Royalty                  <span class="cm">(if AR &gt; Min Rent, no recoupment)</span></div>
+                   OR Actual Royalty                  <span class="cm">(if AR &gt; Min Rent, no recoupment)</span></div>
 </div>
 <div class="sb"><h2>Step-by-Step Worked Example</h2>
   <p><strong>Data:</strong> Royalty = ₦3/tonne | Minimum Rent = ₦15,000/yr | Recoupment Period: Yrs 1–4 only</p>
@@ -496,7 +496,7 @@ royalty:()=>shell('royalty','👑','Royalty Accounts',
     <div class="calc-steps">
       <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Year 1 Actual Royalty</strong><p>3,000 × ₦4 = ₦12,000. Min Rent = ₦20,000. Short-working = 20,000 − 12,000</p><div class="step-result">Short-Working Y1 = ₦8,000</div></div></div>
       <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Year 2 Actual Royalty</strong><p>4,500 × ₦4 = ₦18,000. Short-working = 20,000 − 18,000</p><div class="step-result">Short-Working Y2 = ₦2,000. Cumulative S-W = ₦10,000</div></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Year 3 Surplus & Recoupment</strong><p>7,000 × ₦4 = ₦28,000. Surplus = 28,000 − 20,000 = ₦8,000. S-W b/f = ₦10,000. Recoupment = min(10,000, 8,000)</p><div class="step-result">Recoupment Y3 = ₦8,000 (wait — surplus is only ₦8,000 so recoup ₦8,000; but wait: actually surplus = ₦8,000 so recoupment = ₦8,000 leaving ₦2,000 unrecouped. BUT within period, recoup all surplus: ₦8,000. Then remaining S-W=₦2,000 — but question says recoupment period ends Yr3, so ₦2,000 written off. However the answer above uses recoupment = cumulative ₦10,000 if surplus allows. Let me restate: full surplus available = ₦8,000. Recoup ₦8,000. Remaining ₦2,000 written off to P&L. Amount paid = ₦28,000 − ₦8,000 = ₦20,000. (Answer key shows ₦10,000 recoup — this applies if we allow full S-W recovery: surplus ₦8,000 but recoup max = S-W ₦10,000... correction: recoup = min(surplus, S-W b/f)=8,000.) Amount paid Y3 = 28,000−8,000 = ₦20,000.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Year 3 Surplus & Recoupment</strong><p>7,000 × ₦4 = ₦28,000. Surplus = 28,000 − 20,000 = ₦8,000. S-W b/f = ₦10,000. Recoupment = min(10,000, 8,000)</p><div class="step-result">Recoupment Y3 = ₦8,000 (Remaining ₦2,000 S-W is written off to P&L as recoupment period ends). Amount paid Y3 = 28,000−8,000 = ₦20,000.</div></div></div>
       <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Year 4 (after recoupment period)</strong><p>6,000 × ₦4 = ₦24,000 &gt; ₦20,000. No recoupment allowed after Year 3. Amount paid = Actual Royalty.</p><div class="step-result">Year 4 Payment = ₦24,000</div></div></div>
     </div>
   </div>
@@ -560,7 +560,7 @@ voyage:()=>shell('voyage','⚓','Account of Voyage',
 <span class="hl">Proportion Completed</span> = Days elapsed to year-end ÷ Total voyage days
 <span class="hl">Freight Recognised</span>   = Total Freight × Proportion Completed
 <span class="hl">Expenses to Charge</span>   = Actual expenses incurred to date (direct)
-                       OR  Total estimated × Proportion (for accrued items)
+                        OR  Total estimated × Proportion (for accrued items)
 <span class="hl">WIP Balance</span>          = Revenue earned to date − Expenses to date</div>
   <h3>Worked Example — Incomplete Voyage</h3>
   <p>Voyage begins Dec 1 and ends Jan 15 (46 days total). Year-end = Dec 31 (31 days completed). Total freight = ₦200,000. Total voyage costs = ₦120,000 (accruing evenly).</p>
@@ -723,7 +723,7 @@ partnership:()=>shell('partnership','🤝','Partnership Laws & Accounts',
 <div class="sb"><h2>P&L Appropriation — Key Formula</h2>
   <div class="fbox">
 Net Profit
-<span class="cm">LESS:</span>  Partners' Salaries            <span class="cm">(if in deed)</span>
+<span class="cm">LESS:</span>  Partners' Salaries             <span class="cm">(if in deed)</span>
 <span class="cm">LESS:</span>  Interest on Capital            <span class="cm">= Capital × Rate</span>
 <span class="cm">ADD:</span>   Interest on Drawings          <span class="cm">= Drawings × Rate × Time</span>
 = <span class="hl">Residual Profit</span> shared in Profit-Sharing Ratio (PSR)</div>
@@ -1036,7 +1036,7 @@ inventory:()=>shell('inventory','📦','Inventory Accounts',
                 − Trade discounts
                 + Direct conversion costs
 
-<span class="hl">NRV</span>           = Estimated selling price
+<span class="hl">NRV</span>            = Estimated selling price
                 − Estimated costs to complete
                 − Estimated selling costs
 
@@ -1091,15 +1091,15 @@ Write-down = Cost − NRV  <span class="cm">(if NRV &lt; Cost → expense immedi
     <div class="inp-group"><label>FIFO — Closing Stock units</label><input data-key="inv_fcs_u" placeholder=""></div>
     <div class="inp-group"><label>FIFO — Closing Stock value (₦)</label><input data-key="inv_fcs_v" placeholder=""></div>
   </div>
-  <button class="btn-check" onclick="checkEx('inv1',{inv_fu1:50,inv_fu2:130,inv_fcogs:4250,inv_fcs_u:70,inv_fcs_v:1960})">Check Answers</button>
+  <button class="btn-check" onclick="checkEx('inv1',{inv_fu1:50,inv_fu2:120,inv_fcogs:4280,inv_fcs_u:70,inv_fcs_v:1960})">Check Answers</button>
   <button class="btn-reveal" id="sbtn-inv1" onclick="toggleSol('inv1')">Show Solution</button>
   <div class="ex-fb" id="fb-inv1"></div>
   <div class="sol-panel" id="sol-inv1">
     <div class="calc-steps">
       <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Total available units</strong><p>50 + 120 + 80 = 250. Sell 180. Remaining = 70.</p></div></div>
       <div class="step"><div class="step-num">2</div><div class="step-body"><strong>FIFO — units sold from opening</strong><p>50 units (all opening stock sold first)</p><div class="step-result">Cost: 50 × ₦20 = ₦1,000</div></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>FIFO — remaining 130 from Jan 8</strong><p>180 − 50 = 130 more units needed from Jan 8 batch (all 120? No — 130 > 120). Wait: Jan 8 = 120 units. 50+120=170. Still need 10 more from Jan 15.</p><div class="step-result">Correction: 50 (opening) + 120 (Jan8) + 10 (Jan15). COGS = 1,000 + 3,000 + 280 = ₦4,280</div></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Closing Stock</strong><p>70 units from Jan 15 @ ₦28</p><div class="step-result">= ₦1,960</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>FIFO — remaining from purchases</strong><p>180 total sold - 50 opening = 130 needed.<br>Take all 120 from Jan 8, then 10 from Jan 15.</p><div class="step-result">COGS = 1,000 + (120 × 25) + (10 × 28) = 1,000 + 3,000 + 280 = ₦4,280</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Closing Stock</strong><p>70 units remaining from Jan 15 @ ₦28</p><div class="step-result">= ₦1,960</div></div></div>
     </div>
   </div>
 </div>
